@@ -21,4 +21,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^home/$', TemplateView.as_view(template_name="index.html")),
+    url(r'^game/$', TemplateView.as_view(template_name="game.html")),
+    url(r'^start/$', TemplateView.as_view(template_name="start.html")),
+    url(r'^end/$', TemplateView.as_view(template_name="end.html"))
 ]
