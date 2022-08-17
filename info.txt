@@ -1,0 +1,25 @@
+Studente: Francesco Mazzola, Marco Trambusti (francesco.mazzola00@gmail.com, marco.trambusti1@stud.unifi.it)
+
+
+Progetto: Strike a Pose: applicazione che consente di replicare la posa di opere d’arte (javascript + python), refactoring + game: creare classifica utenti: tempo, n. pose e dare informazioni su opere (https://github.com/MariaGiovannaDonadio/tesi e presentazione allegata)
+
+Riferimenti:
+
+- nessuno
+
+Requisiti
+
+- docker + docker-compose embed
+- javascript - python
+- database configurabile
+- app responsive (desktop, mobile)
+
+
+
+Prima di tutto progettare l’applicazione
+
+Strumenti di progettazione: Mockflow [Progettazione - Da concordare prima dello sviluppo: va mandata via mail vi devo dare l’OK]
+
+Esame: relazione elaborato, presentazione PPT, software in dropbox
+
+
