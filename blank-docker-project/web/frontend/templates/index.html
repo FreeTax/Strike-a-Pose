@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-<p>Home</p>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <div>
+        <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    </div>
+    <script>
+        const webcamElement = document.getElementById('webcam');
+        const canvasElement = document.getElementById('canvas');
+        const webcam = new Webcam(webcamElement, 'user', canvasElement);
+        webcam.start()
+            .then(result => {
+                
+            })
+            .catch(err => {
+                alert("error")
+            });
+            
+
+    </script>
+
+
+
 </body>
+
 </html>
