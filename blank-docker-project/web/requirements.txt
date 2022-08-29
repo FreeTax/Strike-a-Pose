@@ -9,3 +9,4 @@ nose
 tabulate
 urllib3
 beautifulsoup4
+opencv-python

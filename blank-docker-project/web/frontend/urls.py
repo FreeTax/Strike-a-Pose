@@ -19,7 +19,7 @@ from . import camRecognize
 
 urlpatterns = [
     #re_path(r'^home/$', TemplateView.as_view(template_name="index.html")),
-    #re_path(r'^home/$', camRecognize.Home),
+    re_path(r'^home/$', camRecognize.Home),
     re_path(r'^game/$', TemplateView.as_view(template_name="game.html")),
     re_path(r'^start/$', TemplateView.as_view(template_name="start.html")),
     re_path(r'^end/$', TemplateView.as_view(template_name="end.html"))
