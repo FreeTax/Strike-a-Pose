@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+"""from django.http import HttpResponse
 from django.shortcuts import render
 from .models import *
 from django.core.mail import EmailMessage
@@ -36,3 +36,23 @@ def gen(camera):
         frame = camera.get_frame()
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+import tensorflow as tf
+import numpy as np
+#from matplotlib import pyplot as plt
+import cv2
+interpreter=tf.lite.Interpreter(model_path='lite-model_movenet_singlepose_lightning_3.tflite')
+interpreter.allocate_tesors()
+
+cap=cv2.VideoCapture(0)
+while cap.isOpened():
+    ret,frame=cap.read()
+
+    cv2.imshow('MoveNet Lighting', frame)
+
+    while cv2.waitKey(10) & 0xFF==ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+"""

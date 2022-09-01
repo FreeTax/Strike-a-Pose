@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+
+
+    <!-- Load TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+    <!-- Load Posenet -->
+    <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <script type="module" src="{% static 'utils.js' %}"></script>
+    <div id="Container">
+        <video autoplay="true" id="videoElement" width="640" height="480"></video>
+        <canvas id="myCanvas" width="640" height="480"></canvas>
+        <img id="paint" height="480" src="{% static 'assets/img0.jpeg' %}">
+        <canvas id="myCanvasp" width="366" height="480"></canvas>
+    </div>
+    <script type="module">
+        import {/* drawKeypoints, */drawSkeleton } from "{% static 'utils.js' %}"
+
+        const paintElement = document.getElementById('paint');
+        const canvasElementp = document.getElementById('myCanvasp')
+        canvasElementp.style.width = paintElement.clientWidth;
+        canvasElementp.style.height = paintElement.clientHeight;
+        const webcamElement = document.getElementById('videoElement');
+        const canvasElement = document.getElementById('myCanvas');
+        const webcam = new Webcam(webcamElement, 'user', canvasElement);
+        webcam.start();
+
+        const ctxp = canvasElementp.getContext("2d");
+        const ctx = canvasElement.getContext("2d");
+        ctx.translate(canvasElement.width, 0);
+        ctx.scale(-1, 1);
+
+        async function loadVideo() {
+            return webcamElement;
+        }
+
+        const runPosenet = async () => {
+            const net = await posenet.load({
+                inputResolution: { width: 640, height: 480 },
+                scale: 0.7
+            })
+            const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
+            setInterval(() => {
+                detect(net, detector)
+            }, 100);
+        }
+
+        const detect = async (net, detector) => {
+            //Get video proprieties
+            if (loadVideo() != null) {
+                const video = await loadVideo();
+                /*
+                const videoWidth = webcamElement.videoWidth;
+                const videoHeight = webcamElement.videoHeight;
+
+                //set video
+                webcamElement.videoWidth = videoWidth;
+                webcamElement.videoHeight = videoHeight;*/
+                const flipHorizontal = true; //NON fa 
+
+                //const pose = await net.estimateSinglePose(video, /*flipHorizontal*/);
+                const poses = await detector.estimatePoses(video);
+                const imgposes = await detector.estimatePoses(paintElement);
+                //const pose2 = await net.estimateSinglePose(paintElement, /*flipHorizontal*/);
+
+                //console.log(pose);
+                
+                const videoKPs = normalizeKPs(poses, video.width, video.height);
+                const imageKPs = normalizeKPs(imgposes, paintElement.width, paintElement.height);
+
+                console.log(videoKPs.keypoints);
+                drawCanvas(videoKPs, video, canvasElement, ctx);
+                drawCanvas(imageKPs, paintElement, canvasElementp, ctxp);
+
+                //drawCanvas(pose2, paintElement, canvasElementp,ctxp);
+            }
+        }
+
+        export const normalizeKPs = (poses, width, height) =>
+            (poses?.[0]?.keypoints || [])
+                .filter((kp) => kp.score > 0.3)
+                .map(({ x, y, score, name }) => ({
+                    x: x / width,
+                    y: y / height,
+                    score,
+                    name,
+                }));
+
+
+        const drawCanvas = (pose, video, canvas, ctx) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            //canvas.current.width=videoWidth;
+            //canvas.current.height=videoHeight;
+            //drawKeypoints(pose["keypoints"], 0.5, ctx);
+            drawSkeleton(pose,ctx,video);
+        }
+
+        runPosenet();
+
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,101 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    {% load static%}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-
 <body>
     <h1>Game</h1>
-    <img src="{% static 'assets/logo.png' %}">
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--library for make request HTTP-->
-    <script>
-        const getRequest = async () => {
-            const response = await axios.get('/frontend/sendframe',{params: {
-                "test": "this is a test",
-            }}, 
-            )
-            console.log(response.data)
-            
-            }
-        getRequest();
-    </script>
-    
-
-    <!-- Load TensorFlow.js -->
-    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
-    <!-- Load Posenet -->
-    <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
-    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-    <script type="module" src="{% static 'utils.js' %}"></script>
-    <div id="Container">
-        <video autoplay="true" id="videoElement" width="640" height="480"></video>
-        <canvas id="myCanvas" width="640" height="480"></canvas>
-    </div>
-    <script type="module">
-        import { drawKeypoints, drawSkeleton } from "{% static 'utils.js' %}"
-
-        const webcamElement = document.getElementById('videoElement');
-        const canvasElement = document.getElementById('myCanvas');
-        const webcam = new Webcam(webcamElement, 'user', canvasElement);
-        webcam.start();
-
-        const ctx = canvasElement.getContext("2d");
-        ctx.translate(canvasElement.width, 0);
-        ctx.scale(-1, 1);
-
-        async function loadVideo() {
-            return webcamElement;
-        }
-
-        const runPosenet = async () => {
-            const net = await posenet.load({
-                inputResolution: { width: 640, height: 480 },
-                scale: 0.5
-            })
-            setInterval(() => {
-                detect(net)
-            }, 200);
-        }
-
-        const detect = async (net) => {
-            //Get video proprieties
-            if (loadVideo() != null) {
-                const video = await loadVideo();
-                /*
-                const videoWidth = webcamElement.videoWidth;
-                const videoHeight = webcamElement.videoHeight;
-                //set video
-                webcamElement.videoWidth = videoWidth;
-                webcamElement.videoHeight = videoHeight;*/
-                const flipHorizontal = true; //NON fa 
-
-                const pose = await net.estimateSinglePose(video, /*flipHorizontal*/);
-
-                //console.log(pose);
-
-                drawCanvas(pose, video, canvasElement);
-            }
-        }
-
-        const drawCanvas = (pose, video, canvas) => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            //canvas.current.width=videoWidth;
-            //canvas.current.height=videoHeight;
-            drawKeypoints(pose["keypoints"], 0.5, ctx);
-            drawSkeleton(pose["keypoints"], 0.5, ctx);
-        }
-
-        runPosenet();
-
-    </script>
-
-
-
+    {% load static%}
+        <img src="{% static 'assets/logo.png' %}">
 </body>
-
 </html>

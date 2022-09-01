@@ -1,18 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from re import template
-
+from urllib.error import HTTPError
+from django.views.decorators import gzip
 from django.shortcuts import render
+from django.http import HttpResponse,StreamingHttpResponse,HttpResponseServerError
+import cv2
 
 # Create your views here.
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.template import loader
 
-def gameplay(request):
-    template=loader.get_template("game.html")
-    return HttpResponse(template.render())
-
-def request(request):
-    pippo=request.GET.get("test")
-    return JsonResponse({"pippo": pippo})
