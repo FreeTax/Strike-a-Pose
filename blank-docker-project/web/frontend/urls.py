@@ -15,13 +15,12 @@ Including another URLconf
 """
 from django.urls import include, re_path, path
 from django.views.generic import TemplateView
+from . import camRecognize
 from . import views
 
 urlpatterns = [
-    #re_path(r'^home/$', views.index),
-    #re_path(r'^home/$', camRecognize.Home),
+    re_path(r'^start/$', TemplateView.as_view(template_name="start.html")),
+    re_path(r'^end/$', TemplateView.as_view(template_name="end.html")),
     path('game/', views.gameplay),
     path('sendframe', views.request),
-#    re_path(r'^start/$', TemplateView.as_view(template_name="start.html")),
- #   re_path(r'^end/$', TemplateView.as_view(template_name="end.html"))
 ]
