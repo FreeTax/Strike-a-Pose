@@ -9,33 +9,39 @@
 </head>
 
 <body>
-    <h1>Game</h1>
-    <img src="{% static 'assets/logo.png' %}">
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!--library for make request HTTP-->
+    <!--library for make request HTTP-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
         const getRequest = async () => {
-            const response = await axios.get('/frontend/sendframe',{params: {
-                "test": "this is a test",
-            }}, 
+            const response = await axios.get('/frontend/sendframe', {
+                params: {
+                    "test": "this is a test",
+                }
+            },
             )
             console.log(response.data)
-            
-            }
+
+        }
         getRequest();
     </script>
-    
 
     <!-- Load TensorFlow.js -->
     <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+
     <!-- Load Posenet -->
     <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
     <script type="module" src="{% static 'utils.js' %}"></script>
+
+    <h1>Game</h1>
+    <img src="{% static 'assets/logo.png' %}">
     <div id="Container">
         <video autoplay="true" id="videoElement" width="640" height="480"></video>
         <canvas id="myCanvas" width="640" height="480"></canvas>
     </div>
+
     <script type="module">
         import { drawKeypoints, drawSkeleton } from "{% static 'utils.js' %}"
 
@@ -59,43 +65,49 @@
             })
             setInterval(() => {
                 detect(net)
-            }, 200);
+            }, 1000);
         }
 
         const detect = async (net) => {
-            //Get video proprieties
+
             if (loadVideo() != null) {
+
                 const video = await loadVideo();
-                /*
-                const videoWidth = webcamElement.videoWidth;
-                const videoHeight = webcamElement.videoHeight;
-                //set video
-                webcamElement.videoWidth = videoWidth;
-                webcamElement.videoHeight = videoHeight;*/
-                const flipHorizontal = true; //NON fa 
-
-                const pose = await net.estimateSinglePose(video, /*flipHorizontal*/);
-
-                //console.log(pose);
-
+                const pose = await net.estimateSinglePose(video); //important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
                 drawCanvas(pose, video, canvasElement);
+
+                midle_point()
+
             }
         }
 
-        const drawCanvas = (pose, video, canvas) => {
+        const drawCanvas = (pose, video, canvas) => { //pose["keypoints"] contains an array of objects with detected body points and coordinates inside
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            //canvas.current.width=videoWidth;
-            //canvas.current.height=videoHeight;
+
             drawKeypoints(pose["keypoints"], 0.5, ctx);
             drawSkeleton(pose["keypoints"], 0.5, ctx);
         }
 
+        function midle_point() {
+            var p= require("{%static 'bacco.json'%}")
+            json=p
+            var x = 0, y = 0, count = 0
+            json["keypoints"].forEach(element => {
+                if (element["score"] > 0, 3) {
+                    x += element["position"]["x"]
+                    y += element["position"]["y"]
+                    count++
+                }
+
+            })
+            x = x / count
+            y = y / count
+            console.log(x)
+            console.log(y)
+        }
+
         runPosenet();
-
     </script>
-
-
-
 </body>
 
 </html>

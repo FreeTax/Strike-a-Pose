@@ -16,3 +16,6 @@ def gameplay(request):
 def request(request):
     pippo=request.GET.get("test")
     return JsonResponse({"pippo": pippo})
+
+
+
