@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Title</title>
 </head>
+
 <body>
-    <h1>Game</h1>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const getRequest = async () => {
+            const response = await axios.get('/frontend/sendframe',{params: {
+                "test": "this is a test",
+            }}, 
+            )
+            console.log(response.data)
+            
+            }
+        getRequest();
+    </script>
+    <div>
+        <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    </div>
+    <script>
+        const webcamElement = document.getElementById('webcam');
+        const canvasElement = document.getElementById('canvas');
+        const webcam = new Webcam(webcamElement, 'user', canvasElement);
+        webcam.start()
+            .then(result => {
+                
+            })
+            .catch(err => {
+                alert("error")
+            });
+            
+
+    </script>
+
+
+
 </body>
+
 </html>
