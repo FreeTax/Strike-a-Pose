@@ -13,14 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.urls import include, re_path, path
+from django.urls import include, re_path
 from django.views.generic import TemplateView
-from . import camRecognize
+
 from . import views
+from . import camRecognize
 
 urlpatterns = [
+    re_path(r'^home/$', TemplateView.as_view(template_name="index.html")),
+    #re_path(r'^home/$', views.index),
+    re_path(r'^game/$', TemplateView.as_view(template_name="game.html")),
     re_path(r'^start/$', TemplateView.as_view(template_name="start.html")),
-    re_path(r'^end/$', TemplateView.as_view(template_name="end.html")),
-    path('game/', views.gameplay),
-    path('sendframe', views.request),
+    re_path(r'^end/$', TemplateView.as_view(template_name="end.html"))
 ]
