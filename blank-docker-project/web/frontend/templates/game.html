@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static%}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
+
 <body>
 
     <!--library for make request HTTP-->
@@ -26,28 +30,38 @@
     </script>
 
     <!-- Load TensorFlow.js -->
-    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
-
-    <!-- Load Posenet -->
-    <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+    <!-- Load Posenet <script src="https://unpkg.com/@tensorflow-models/posenet"></script>-->
+    <!--Load WebcamEasy-->
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <!--Load Utils-->
     <script type="module" src="{% static 'utils.js' %}"></script>
 
     <h1>Game</h1>
-    <img src="{% static 'assets/logo.png' %}">
+    <!--<img src="{% static 'assets/logo.png' %}">-->
     <div id="Container">
         <video autoplay="true" id="videoElement" width="640" height="480"></video>
         <canvas id="myCanvas" width="640" height="480"></canvas>
+        <img id="paint" height="480" src="{% static 'assets/img0.jpeg' %}">
+        <canvas id="myCanvasp" width="366" height="480"></canvas>
     </div>
 
     <script type="module">
-        import { drawKeypoints, drawSkeleton } from "{% static 'utils.js' %}"
+        import {/* drawKeypoints, */drawSkeleton } from "{% static 'utils.js' %}"
 
+        const paintElement = document.getElementById('paint');
+        const canvasElementp = document.getElementById('myCanvasp')
+        canvasElementp.style.width = paintElement.clientWidth;
+        canvasElementp.style.height = paintElement.clientHeight;
         const webcamElement = document.getElementById('videoElement');
         const canvasElement = document.getElementById('myCanvas');
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
-        webcam.start();
+        await webcam.start();
 
+        const ctxp = canvasElementp.getContext("2d");
         const ctx = canvasElement.getContext("2d");
         ctx.translate(canvasElement.width, 0);
         ctx.scale(-1, 1);
@@ -57,38 +71,50 @@
         }
 
         const runPosenet = async () => {
-            const net = await posenet.load({
-                inputResolution: { width: 640, height: 480 },
-                scale: 0.5
-            })
+            const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
             setInterval(() => {
-                detect(net)
-            }, 1000);
+                detect(detector)
+            }, 100);
         }
 
-        const detect = async (net) => {
+        const detect = async (detector) => {
 
             if (loadVideo() != null) {
 
                 const video = await loadVideo();
-                const pose = await net.estimateSinglePose(video); //important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
-                drawCanvas(pose, video, canvasElement);
+                const flipHorizontal = false;
+                const poses = await detector.estimatePoses(video);//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
+                const imgposes = await detector.estimatePoses(paintElement);
+
+                const videoKPs = normalizeKPs(poses, video.width, video.height);
+                const imageKPs = normalizeKPs(imgposes, paintElement.width, paintElement.height);
+
+                drawCanvas(videoKPs, video, canvasElement, ctx);
+                drawCanvas(imageKPs, paintElement, canvasElementp, ctxp);
 
                 midle_point()
 
             }
         }
 
-        const drawCanvas = (pose, video, canvas) => { //pose["keypoints"] contains an array of objects with detected body points and coordinates inside
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const normalizeKPs = (poses, width, height) =>
+            (poses?.[0]?.keypoints || [])
+                .filter((kp) => kp.score > 0.3)
+                .map(({ x, y, score, name }) => ({
+                    x: x / width,
+                    y: y / height,
+                    score,
+                    name,
+                }));
 
-            drawKeypoints(pose["keypoints"], 0.5, ctx);
-            drawSkeleton(pose["keypoints"], 0.5, ctx);
+        const drawCanvas = (pose, video, canvas, ctx) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawSkeleton(pose, ctx, video);
         }
 
         function midle_point() {
-            var p= require("{%static 'bacco.json'%}")
-            json=p
+            var p = require("{%static 'bacco.json'%}")
+            json = p
             var x = 0, y = 0, count = 0
             json["keypoints"].forEach(element => {
                 if (element["score"] > 0, 3) {
@@ -107,4 +133,5 @@
         runPosenet();
     </script>
 </body>
+
 </html>
