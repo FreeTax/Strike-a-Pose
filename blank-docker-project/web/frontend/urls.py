@@ -17,10 +17,9 @@ from django.urls import include, re_path
 from django.views.generic import TemplateView
 
 from . import views
-from . import camRecognize
 
 urlpatterns = [
-    re_path(r'^home/$', TemplateView.as_view(template_name="index.html")),
+    re_path(r'^home/$', TemplateView.as_view(template_name="index.html"), name="home"),
     #re_path(r'^home/$', views.index),
     re_path(r'^game/$', TemplateView.as_view(template_name="game.html")),
     re_path(r'^start/$', TemplateView.as_view(template_name="start.html")),
