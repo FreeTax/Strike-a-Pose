@@ -45,13 +45,14 @@
     <div id="Container">
         <video autoplay="true" id="videoElement" width="640" height="480"></video>
         <canvas id="myCanvas" width="640" height="480"></canvas>
-        <img id="paint" height="480" src="{% static 'assets/img0.jpeg' %}">
+        <label>Score</label><label style="font-size:40px;" id="score"></label>
+        <img id="paint" height="480" src="{% static 'assets/opere/sangiovanni.jpeg' %}">
         <canvas id="myCanvasp" width="366" height="480"></canvas>
     </div>
 
     <script type="module">
-        import {/* drawKeypoints, */drawSkeleton } from "{% static 'utils.js' %}"
-
+        import{poseInit,runPosenet} from "{% static 'game.js' %}"
+        var scoreLbl=document.getElementById('score');
         const paintElement = document.getElementById('paint');
         const canvasElementp = document.getElementById('myCanvasp')
         canvasElementp.style.width = paintElement.clientWidth;
@@ -61,76 +62,7 @@
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
         await webcam.start();
 
-        const ctxp = canvasElementp.getContext("2d");
-        const ctx = canvasElement.getContext("2d");
-        ctx.translate(canvasElement.width, 0);
-        ctx.scale(-1, 1);
-
-        async function loadVideo() {
-            return webcamElement;
-        }
-
-        const runPosenet = async () => {
-            const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
-            setInterval(() => {
-                detect(detector)
-            }, 100);
-        }
-
-        const detect = async (detector) => {
-
-            if (loadVideo() != null) {
-
-                const video = await loadVideo();
-                const flipHorizontal = false;
-                const poses = await detector.estimatePoses(video);//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
-                const imgposes = await detector.estimatePoses(paintElement);
-
-                const videoKPs = normalizeKPs(poses, video.width, video.height);
-                const imageKPs = normalizeKPs(imgposes, paintElement.width, paintElement.height);
-
-                drawCanvas(videoKPs, video, canvasElement, ctx);
-                drawCanvas(imageKPs, paintElement, canvasElementp, ctxp);
-
-                midle_point()
-
-            }
-        }
-
-        const normalizeKPs = (poses, width, height) =>
-            (poses?.[0]?.keypoints || [])
-                .filter((kp) => kp.score > 0.3)
-                .map(({ x, y, score, name }) => ({
-                    x: x / width,
-                    y: y / height,
-                    score,
-                    name,
-                }));
-
-        const drawCanvas = (pose, video, canvas, ctx) => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawSkeleton(pose, ctx, video);
-        }
-
-        function midle_point() {
-            var p = require("{%static 'bacco.json'%}")
-            json = p
-            var x = 0, y = 0, count = 0
-            json["keypoints"].forEach(element => {
-                if (element["score"] > 0, 3) {
-                    x += element["position"]["x"]
-                    y += element["position"]["y"]
-                    count++
-                }
-
-            })
-            x = x / count
-            y = y / count
-            console.log(x)
-            console.log(y)
-        }
-
-        runPosenet();
+        poseInit(webcamElement,paintElement,canvasElement,canvasElementp,scoreLbl);
     </script>
 </body>
 
