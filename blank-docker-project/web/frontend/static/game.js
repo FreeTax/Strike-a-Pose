@@ -61,27 +61,34 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas,scoreLbl) => {
 export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx,scoreLbl) => {
     scoreLbl;
     const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
+    
     const poses = await detector.estimatePoses(img,{flipHorizontal:true});//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
     const imageKPs = normalizeKPs(poses, img.width, img.height);
     const distanceFromImg = createPoseDistanceFrom(imageKPs);
-    detect(detector, img, imgCanvas, imgCtx)
+    //detect(detector, img, imgCanvas, imgCtx)
+    drawCanvas(imageKPs, img, imgCanvas, imgCtx);
 
     setInterval(async () => {
         const vidposes = await detector.estimatePoses(video,{flipHorizontal:true});//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
         const videoKPs = normalizeKPs(vidposes, video.width, video.height);
-        detect(detector, video, canvas, ctx);
-        //drawCanvas(videoKPs, video, canvas, ctx);
+        //detect(detector, video, canvas, ctx);
+        drawCanvas(videoKPs, video, canvas, ctx);
         //const filteredVideoKPs = videoKPs.filter((kp) => imageKPNames.includes(kp.name));
 
         const computedDistance = distanceFromImg(videoKPs);
         const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.7) * 100).toFixed(0);
-        if (computedDistancePercentage != 0) {
-            scoreLbl.innerHTML=computedDistancePercentage;
-            console.log(computedDistancePercentage);
+        
+        scoreLbl.innerHTML=computedDistancePercentage;
+        console.log(computedDistancePercentage);
+        
+        if(computedDistancePercentage>=0.7*100){
+            clearInterval(runPosenet)
+            console.log("MATCH")
         }
     }, 100);
 }
 
+/*
 const detect = async (detector, media, canvasElement, ctx) => {
     if (media != null) {
         //const flipHorizontal = true;
@@ -93,7 +100,7 @@ const detect = async (detector, media, canvasElement, ctx) => {
 
         //midle_point()
     }
-}
+}*/
 
 const normalizeKPs = (poses, width, height) =>
     (poses?.[0]?.keypoints || [])
