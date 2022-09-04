@@ -1,4 +1,6 @@
 import {/* drawKeypoints, */drawSkeleton } from './utils.js'
+//import { getLevel, getPicture, postVideo } from "./fetchUtils.js";
+
 const createPoseDistanceFrom = (keypointsA = []) => {
     const [avgXA, avgYA] = keypointsA
       .reduce(([sumX, sumY], kpA) => [sumX + kpA.x, sumY + kpA.y], [0, 0])
@@ -60,6 +62,8 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas,scoreLbl) => {
 
 export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx,scoreLbl) => {
     scoreLbl;
+    //var sourceimg=await getPicture(1);
+    //img.src=sourceimg;
     const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
     
     const poses = await detector.estimatePoses(img,{flipHorizontal:true});//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree

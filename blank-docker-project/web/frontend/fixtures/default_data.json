@@ -1,0 +1,138 @@
+[
+    {
+        "model": "frontend.level",
+        "pk": 1,
+        "fields": {
+            "name": "Mezzo busto",
+            "description": "Imita la posa di una serie di opere d'arte. Troverai solo opere a mezzo busto."
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk": 1,
+        "fields": {
+            "path": "static/assets/opere/img15.jpeg",
+            "level": "1"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk": 2,
+        "fields": {
+            "path": "static/assets/opere/img16.jpeg",
+            "level": "1"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk": 3,
+        "fields": {
+            "path": "static/assets/opere/img17.jpeg",
+            "level": "1"
+        }
+    },
+    {
+        "model": "frontend.level",
+        "pk": 2,
+        "fields": {
+            "name": "Intero",
+            "description": "Imita la posa di una serie di opere d'arte. Troverai solo opere a busto intero."
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":4,
+        "fields": {
+            "path": "static/assets/opere/img11.jpeg",
+            "level": "2"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":5,
+        "fields": {
+            "path": "static/assets/opere/img12.jpeg",
+            "level": "2"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":6,
+        "fields": {
+            "path": "static/assets/opere/img13.jpeg",
+            "level": "2"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":7,
+        "fields": {
+            "path": "static/assets/opere/img14.jpeg",
+            "level": "2"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":8,
+        "fields": {
+            "path": "static/assets/opere/img10.jpeg",
+            "level": "2"
+        }
+    },
+    {
+        "model": "frontend.level",
+        "pk": 3,
+        "fields": {
+            "name": "Misto",
+            "description": "Imita la posa di una serie di opere d'arte. Troverai opere a metà busto e a busto intero"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":9,
+        "fields": {
+            "path": "static/assets/opere/img15.jpeg",
+            "level": "3"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":10,
+        "fields": {
+            "path": "static/assets/opere/img12.jpeg",
+            "level": "3"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":11,
+        "fields": {
+            "path": "static/assets/opere/img16.jpeg",
+            "level": "3"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":12,
+        "fields": {
+            "path": "static/assets/opere/img13.jpeg",
+            "level": "3"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":13,
+        "fields": {
+            "path": "static/assets/opere/img17.jpeg",
+            "level": "3"
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk":14,
+        "fields": {
+            "path": "static/assets/opere/img10.jpeg",
+            "level": "3"
+        }
+    }
+]
