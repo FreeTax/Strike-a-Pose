@@ -8,7 +8,7 @@ from django.http import HttpResponse,StreamingHttpResponse,HttpResponseServerErr
 from django.http import JsonResponse
 from django.core import serializers
 from .models import *
-from .models import  Level, Picture, Video, Score
+#from .models import  Level, Picture, Video, Score
 from django.contrib.auth.models import User
 from django.db import connection
 # Create your views here.

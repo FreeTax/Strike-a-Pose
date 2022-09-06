@@ -47,18 +47,24 @@
             console.log(JSON.parse(response.data.proposal_list))
 
         }
-        
+
         import { poseInit, runPosenet } from "{% static 'game.js' %}"
         var scoreLbl = document.getElementById('score');
         const paintElement = document.getElementById('paint');
-        paintElement.src="";
+        paintElement.src = "";
         const canvasElementp = document.getElementById('myCanvasp')
         canvasElementp.style.width = paintElement.clientWidth;
         canvasElementp.style.height = paintElement.clientHeight;
         const webcamElement = document.getElementById('videoElement');
         const canvasElement = document.getElementById('myCanvas');
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
-        await webcam.start();
+        webcam.start()
+            .then(result => {
+                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl, 1);
+            })
+            .catch(err => {
+                console.log(err);
+            });
 
         /*
         fetch("http://127.0.0.1:8080")
@@ -66,10 +72,10 @@
                 console.log(response);
             })
             .catch(error => console.log("Si è verificato un errore!")) */
-        
-            sendData(1);
 
-        poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl,1);
+        //sendData(1);
+
+        
     </script>
     {%else%}
     <h1>Not logged in</h1>

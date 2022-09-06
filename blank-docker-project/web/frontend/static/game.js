@@ -1,7 +1,7 @@
 import {/* drawKeypoints, */drawSkeleton } from './utils.js'
 import { getLevel, getPicture, postVideo } from "./fetchUtils.js";
 
-const createPoseDistanceFrom = (keypointsA = []) => {
+const createPoseDistanceFrom = async(keypointsA = []) => {
   const [avgXA, avgYA] = keypointsA
     .reduce(([sumX, sumY], kpA) => [sumX + kpA.x, sumY + kpA.y], [0, 0])
     .map((sum) => sum / keypointsA.length);
@@ -39,7 +39,7 @@ const createPoseDistanceFrom = (keypointsA = []) => {
   };
 };
 
-export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl,level) => {
+export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, level) => {
   const video = vid;
   const image = img;
   const videoCanvas = vidCanvas;
@@ -52,55 +52,59 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl,level) =
   const imgCtx = imageCanvas.getContext("2d");
   imgCtx.translate(imageCanvas.width, 0);
   imgCtx.scale(-1, 1);
-  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl,level);
-
-
-
+  
+  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, level);
   //detect(detector,image,imageCanvas,imgCtx);
 }
 
+const createImage = (img,src) =>
+  new Promise((resolve, reject) => {
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.crossOrigin = "anonymous";
+    img.src = "../../"+src;
+  });
 
 export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, levelId) => {
   scoreLbl;
   const level = await getLevel(1);
-  //console.log(level);
+  // console.log(level);
   let round = 0;
-  
-  
   const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
   const userVideoList = [];
 
   const nextRound = async () => {
     const levelPictures = await getPicture(level[0].pk);
+    console.log(levelPictures);
     var picture = await levelPictures[round].fields.path;
     //console.log(picture);
-    img.src = "../../" + picture;
+    await createImage(img, picture);
     const poses = await detector.estimatePoses(img, { flipHorizontal: true });//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
-    const imageKPs = normalizeKPs(poses, img.width, img.height);
-    const distanceFromImg = createPoseDistanceFrom(imageKPs);
+    const imageKPs = await normalizeKPs(poses, img.width, img.height);
+    const distanceFromImg = await createPoseDistanceFrom(imageKPs);
     //detect(detector, img, imgCanvas, imgCtx)
-    drawCanvas(imageKPs, img, imgCanvas, imgCtx);
+    await drawCanvas(imageKPs, img, imgCanvas, imgCtx);
 
     const gameLoop = setInterval(async () => {
       const vidposes = await detector.estimatePoses(video, { flipHorizontal: true });//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
-      const videoKPs = normalizeKPs(vidposes, video.width, video.height);
+      const videoKPs = await normalizeKPs(vidposes, video.width, video.height);
       //detect(detector, video, canvas, ctx);
-      drawCanvas(videoKPs, video, canvas, ctx);
+      await drawCanvas(videoKPs, video, canvas, ctx);
       //const filteredVideoKPs = videoKPs.filter((kp) => imageKPNames.includes(kp.name));
 
       const computedDistance = distanceFromImg(videoKPs);
-      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.7) * 100).toFixed(0);
+      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.8) * 100).toFixed(0);
 
       scoreLbl.innerHTML = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.7 * 100) {
+      if (computedDistancePercentage >= 0.8 * 100) {
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
-        if (round<levelPictures.length){
+        if (round < levelPictures.length) {
           await nextRound();
-        }else{
+        } else {
           alert("HAI")
         }
       }
@@ -125,7 +129,7 @@ const detect = async (detector, media, canvasElement, ctx) => {
     }
 }*/
 
-const normalizeKPs = (poses, width, height) =>
+const normalizeKPs = async(poses, width, height) =>
   (poses?.[0]?.keypoints || [])
     .filter((kp) => kp.score > 0.3)
     .map(({ x, y, score, name }) => ({
@@ -135,7 +139,7 @@ const normalizeKPs = (poses, width, height) =>
       name,
     }));
 
-const drawCanvas = (pose, video, canvas, ctx) => {
+const drawCanvas = async(pose, video, canvas, ctx) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawSkeleton(pose, ctx, video);
 }
