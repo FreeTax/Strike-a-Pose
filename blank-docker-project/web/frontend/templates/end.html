@@ -7,10 +7,36 @@
     <title>Document</title>
 </head>
 <body>
+    <!--library for make request HTTP-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <h1>End</h1>
     {%if user.is_authenticated%}
     <h1>Logged in</h1>
     <a href="{% url 'logout' %}">Logout</a>
+    <table align = "center"
+            id="table" border="1">
+    </table>
+    <script>
+        getdata()
+        var table = document.getElementById("table");
+        function printTable(data){
+            for (var i = 0; i < data.length; i++) {
+                var row = `<tr>
+                                <td>${data[i][0]}</td>
+                                <td>${data[i][1]}</td>
+                                <td>${data[i][2]}</td>
+                                <td>${data[i][3]}</td>
+                            </tr>`;
+                table.innerHTML += row;
+            }
+        }
+        async function getdata(){
+            var response = await axios.get('http://localhost:8000/frontend/getscore');
+            console.log("ciao")
+            console.log(response.data);
+            printTable(response.data);
+        }
+        </script>
     {%else%}
     <h1>Not logged in</h1>
     <a href="{%url 'login'%}">Login</a>
