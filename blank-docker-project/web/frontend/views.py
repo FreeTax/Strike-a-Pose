@@ -55,6 +55,7 @@ def setScore(request):
     score=request.GET.get("score")
     score= Score(user_id=user_id, points=score)
     score.save()
+    return JsonResponse({"status": "ok"})
 
 def getScoreByUser(request):
     cursor=connection.cursor()

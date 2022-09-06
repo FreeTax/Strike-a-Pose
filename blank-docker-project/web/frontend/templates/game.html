@@ -37,6 +37,7 @@
         <label>Time:</label><label style="font-size:40px;" id="time"></label>
         <img id="paint" height="480" width="480" src="{% static 'assets/opere/img15.jpeg' %}">
         <canvas id="myCanvasp" width="480" height="480"></canvas>
+        
     </div>
 
     <script type="module">
@@ -67,17 +68,10 @@
             })
             .catch(err => {
                 console.log(err);
-            });
+            });        
+    </script>
 
-        /*
-        fetch("http://127.0.0.1:8080")
-            .then(response => {
-                console.log(response);
-            })
-            .catch(error => console.log("Si è verificato un errore!")) */
-
-        //sendData(1);
-
+    <script>
         
     </script>
     {%else%}
