@@ -70,6 +70,16 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
   const level = await getLevel(1);
   // console.log(level);
   let round = 0;
+  
+  async function sendscore(score){
+    const user_id = JSON.parse(document.getElementById('user_id').textContent);
+    const response = await axios.get('/frontend/setscore', {
+      params: {
+        "user_id": user_id,
+        "score": score
+      }
+  },)
+  }
   const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
   const userVideoList = [];
 
@@ -106,6 +116,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
           await nextRound();
         } else {
           alert("HAI")
+          sendscore(10) //inserisci al posto di 10 la variable col punteggio
         }
       }
 
