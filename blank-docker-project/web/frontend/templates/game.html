@@ -62,9 +62,13 @@
         const webcamElement = document.getElementById('videoElement');
         const canvasElement = document.getElementById('myCanvas');
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
+        const queryParams = new URLSearchParams(window.location.search);
+        const levelId = queryParams.get("id");
+
+
         webcam.start()
             .then(result => {
-                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl,timelbl, 1);
+                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl,timelbl, levelId);
             })
             .catch(err => {
                 console.log(err);

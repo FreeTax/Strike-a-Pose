@@ -67,7 +67,7 @@ const createImage = (img, src) =>
 
 export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, timelbl, levelId) => {
   scoreLbl;
-  const level = await getLevel(1);
+  const level = await getLevel(levelId);
   // console.log(level);
   let round = 0;
 

@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    {% load static%}
 </head>
+
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script type="module" src="{% static 'fetchUtils.js' %}"></script>
     <h1>Start</h1>
+    <div id="level-list"></div>
 </body>
+<script type="module">
+    import {getLevels,getPicture} from "{% static 'fetchUtils.js' %}";
+    
+        const levelList = await getLevels();
+        const levelListEl = document.getElementById("level-list");
+        levelList.forEach(async(levelItem) => {
+            const images= await getPicture(levelItem.pk);
+            console.log(images)
+            
+            levelListEl.innerHTML+=`
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2 class="card-title" >${levelItem.fields.name}</h2>
+                <h5 class="card-subtitle mb-2 text-muted">${images.length} opere</h5>
+                <p class="card-text">
+                ${levelItem.fields.description}
+                </p>
+                <a class="btn btn-primary btn-block" href="../game?id=${levelItem.pk}">GIOCA</a>
+            </div>
+        </div>`;
+        });
+
+</script>
+
 </html>

@@ -29,7 +29,7 @@ def getLevel(request):
     response = serializers.serialize("json", Level.objects.filter(id=lvlid))
     return JsonResponse(response, safe=False)
 
-def getLevels():
+def getLevels(req):
     response = {}
     response['proposal_list'] = serializers.serialize("json", Level.objects.all())
     return JsonResponse(response)
