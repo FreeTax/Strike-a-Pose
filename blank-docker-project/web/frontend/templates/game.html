@@ -34,6 +34,7 @@
         <video autoplay="true" id="videoElement" width="640" height="480"></video>
         <canvas id="myCanvas" width="640" height="480"></canvas>
         <label>Score</label><label style="font-size:40px;" id="score"></label>
+        <label>Time:</label><label style="font-size:40px;" id="time"></label>
         <img id="paint" height="480" width="480" src="{% static 'assets/opere/img15.jpeg' %}">
         <canvas id="myCanvasp" width="480" height="480"></canvas>
     </div>
@@ -51,6 +52,7 @@
 
         import { poseInit, runPosenet } from "{% static 'game.js' %}"
         var scoreLbl = document.getElementById('score');
+        const timelbl=document.getElementById('time');
         const paintElement = document.getElementById('paint');
         paintElement.src = "";
         const canvasElementp = document.getElementById('myCanvasp')
@@ -61,7 +63,7 @@
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
         webcam.start()
             .then(result => {
-                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl, 1);
+                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl,timelbl, 1);
             })
             .catch(err => {
                 console.log(err);

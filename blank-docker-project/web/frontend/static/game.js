@@ -1,7 +1,7 @@
 import {/* drawKeypoints, */drawSkeleton } from './utils.js'
 import { getLevel, getPicture, postVideo } from "./fetchUtils.js";
 
-const createPoseDistanceFrom = async(keypointsA = []) => {
+const createPoseDistanceFrom = async (keypointsA = []) => {
   const [avgXA, avgYA] = keypointsA
     .reduce(([sumX, sumY], kpA) => [sumX + kpA.x, sumY + kpA.y], [0, 0])
     .map((sum) => sum / keypointsA.length);
@@ -39,7 +39,7 @@ const createPoseDistanceFrom = async(keypointsA = []) => {
   };
 };
 
-export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, level) => {
+export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl, level) => {
   const video = vid;
   const image = img;
   const videoCanvas = vidCanvas;
@@ -52,42 +52,44 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, level) 
   const imgCtx = imageCanvas.getContext("2d");
   imgCtx.translate(imageCanvas.width, 0);
   imgCtx.scale(-1, 1);
-  
-  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, level);
+
+  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, timelbl, level);
   //detect(detector,image,imageCanvas,imgCtx);
 }
 
-const createImage = (img,src) =>
+const createImage = (img, src) =>
   new Promise((resolve, reject) => {
     img.onload = () => resolve(img);
     img.onerror = reject;
     img.crossOrigin = "anonymous";
-    img.src = "../../"+src;
+    img.src = "../../" + src;
   });
 
-export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, levelId) => {
+export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, timelbl, levelId) => {
   scoreLbl;
   const level = await getLevel(1);
   // console.log(level);
   let round = 0;
-  
-  async function sendscore(score){
+
+  async function sendscore(score) {
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
     const response = await axios.get('/frontend/setscore', {
       params: {
         "user_id": user_id,
         "score": score
       }
-  },)
+    },)
   }
   const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
   const userVideoList = [];
+  const levelPictures = await getPicture(level[0].pk);
+  var timeleft = 10 /*30 * levelPictures.length*/
 
   const nextRound = async () => {
-    const levelPictures = await getPicture(level[0].pk);
     console.log(levelPictures);
     var picture = await levelPictures[round].fields.path;
     //console.log(picture);
+    timelbl.innerHTML = Math.trunc(timeleft) + " s";
     await createImage(img, picture);
     const poses = await detector.estimatePoses(img, { flipHorizontal: true });//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
     const imageKPs = await normalizeKPs(poses, img.width, img.height);
@@ -96,6 +98,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
     await drawCanvas(imageKPs, img, imgCanvas, imgCtx);
 
     const gameLoop = setInterval(async () => {
+      timelbl.innerHTML = Math.trunc(timeleft) + " s";
       const vidposes = await detector.estimatePoses(video, { flipHorizontal: true });//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
       const videoKPs = await normalizeKPs(vidposes, video.width, video.height);
       //detect(detector, video, canvas, ctx);
@@ -112,14 +115,21 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
-        if (round < levelPictures.length) {
+        if (round < levelPictures.length && timeleft>0) {
           await nextRound();
-        } else {
+        } else{
           alert("HAI")
-          sendscore(10) //inserisci al posto di 10 la variable col punteggio
+          const score =Math.trunc(timeleft/90+round/levelPictures.length*100)
+          sendscore(score) //inserisci al posto di 10 la variable col punteggio
         }
       }
-
+      if(timeleft <=0){
+        clearInterval(gameLoop);
+        alert("HAI")
+          const score = Math.trunc(timeleft/90+round/levelPictures.length*100)
+          sendscore(score) //inserisci al posto di 10 la variable col punteggio
+      }
+      timeleft -= 0.1;
     }, 100);
     return gameLoop;
   };
@@ -140,7 +150,7 @@ const detect = async (detector, media, canvasElement, ctx) => {
     }
 }*/
 
-const normalizeKPs = async(poses, width, height) =>
+const normalizeKPs = async (poses, width, height) =>
   (poses?.[0]?.keypoints || [])
     .filter((kp) => kp.score > 0.3)
     .map(({ x, y, score, name }) => ({
@@ -150,7 +160,7 @@ const normalizeKPs = async(poses, width, height) =>
       name,
     }));
 
-const drawCanvas = async(pose, video, canvas, ctx) => {
+const drawCanvas = async (pose, video, canvas, ctx) => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawSkeleton(pose, ctx, video);
 }
