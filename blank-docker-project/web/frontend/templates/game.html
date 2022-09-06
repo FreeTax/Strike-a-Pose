@@ -33,25 +33,25 @@
         <video autoplay="true" id="videoElement" width="640" height="480"></video>
         <canvas id="myCanvas" width="640" height="480"></canvas>
         <label>Score</label><label style="font-size:40px;" id="score"></label>
-        <img id="paint" height="480" src="{% static 'assets/opere/sangiovanni.jpeg' %}">
-        <canvas id="myCanvasp" width="366" height="480"></canvas>
+        <img id="paint" height="480" width="480" src="{% static 'assets/opere/img15.jpeg' %}">
+        <canvas id="myCanvasp" width="480" height="480"></canvas>
     </div>
 
     <script type="module">
-        async function sendData(obj) {
+        async function sendData(id) {
             const response = await axios.get('/frontend/getimg', {
                 params: {
-                    "test": obj,
+                    "id": id,
                 }
-            },
-            )
-            console.log(response.data.pippo)
+            },)
+            console.log(JSON.parse(response.data.proposal_list))
 
         }
         
         import { poseInit, runPosenet } from "{% static 'game.js' %}"
         var scoreLbl = document.getElementById('score');
         const paintElement = document.getElementById('paint');
+        paintElement.src="";
         const canvasElementp = document.getElementById('myCanvasp')
         canvasElementp.style.width = paintElement.clientWidth;
         canvasElementp.style.height = paintElement.clientHeight;
@@ -67,9 +67,9 @@
             })
             .catch(error => console.log("Si è verificato un errore!")) */
         
-            sendData("push obj here");
+            sendData(1);
 
-        poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl);
+        poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl,1);
     </script>
     {%else%}
     <h1>Not logged in</h1>

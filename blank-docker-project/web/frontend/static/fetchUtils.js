@@ -1,6 +1,6 @@
 //import { Config } from "./config.js";
 const SERVER_URL = "3306:3306/";
-const  BASE_URL = 'http://127.0.0.1:8000/api/v1/';
+const BASE_URL = 'http://127.0.0.1:8000/api/v1/';
 
 const fetchJson = async (callback) => {
   const response = await callback;
@@ -11,25 +11,28 @@ const fetchJson = async (callback) => {
   return await response.json();
 };
 
-export const getPicture = (id) =>
-  fetchJson(
-    fetch(`${BASE_URL}pictures/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-  );
+export async function getPicture(id) {
+  const response = await axios.get('/frontend/getimg', {
+    params: {
+      "id": id,
+    }
+  },)
+  return JSON.parse(response.data.proposal_list)
+}
 
-export const getLevel = (id) =>
-  fetchJson(
-    fetch(`${Config.BASE_URL}levels/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-  );
+export async function getLevel(id) {
+  const response = await axios.get('/frontend/getlvl', {
+    params: {
+      "id": id,
+    }
+  },)
+  return JSON.parse(response.data)
+}
+
+export async function getLevels() {
+  const response = await axios.get('/frontend/getlvls')
+  return JSON.parse(response.data.proposal_list)
+}
 
 export const postVideo = (formData) =>
   fetchJson(
@@ -42,15 +45,14 @@ export const postVideo = (formData) =>
     })
   );
 
-export const getVideo = (id) =>
-  fetchJson(
-    fetch(`${Config.BASE_URL}videos/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-  );
+export async function getVideo(id) {
+  const response = await axios.get('/frontend/getvid', {
+    params: {
+      "id": id,
+    }
+  },)
+  console.log(JSON.parse(response.data))
+}
 
 export const getUserMe = () =>
   fetchJson(
@@ -62,12 +64,3 @@ export const getUserMe = () =>
     })
   );
 
-export const getLevels = () =>
-  fetchJson(
-    fetch(`${Config.BASE_URL}levels`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-  );
