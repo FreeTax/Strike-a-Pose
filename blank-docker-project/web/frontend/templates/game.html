@@ -12,6 +12,7 @@
 
 <body>
     {% if user.is_authenticated%}
+    {{ request.user.id|json_script:"user_id" }}
 
     <!--library for make request HTTP-->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

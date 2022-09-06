@@ -32,7 +32,6 @@
         }
         async function getdata(){
             var response = await axios.get('http://localhost:8000/frontend/getscore');
-            console.log("ciao")
             console.log(response.data);
             printTable(response.data);
         }
