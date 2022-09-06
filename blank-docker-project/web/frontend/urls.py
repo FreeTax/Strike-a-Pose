@@ -25,6 +25,7 @@ urlpatterns = [
     path('setscore', views.setScore),
     path('getscorebyuser', views.getScoreByUser),
     path('getscore', views.getScore),
+    path('getusers', views.getUsers),
     re_path(r'^game/$', TemplateView.as_view(template_name="game.html")),
     re_path(r'^start/$', TemplateView.as_view(template_name="start.html")),
     re_path(r'^end/$', TemplateView.as_view(template_name="end.html"))

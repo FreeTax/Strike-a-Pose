@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.conf import settings
-
+from django.contrib.auth.models import User
+"""
 # Create your models here.
 class User(models.Model):
     id = models.AutoField(primary_key=True)
@@ -19,7 +20,7 @@ class User(models.Model):
     def as_dict(self):
         return {"id": self.id, "email": self.email}
 
-
+"""
 class Level(models.Model):
     id = models.AutoField(primary_key=True)
     # id = models.Column(models.Integer, primary_key=True)
@@ -61,7 +62,7 @@ class Video(models.Model):
 
 class Score(models.Model):
     id=models.AutoField(primary_key=True)
-    user=models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
+    user=models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     points=models.IntegerField(null=False)
     date=models.DateTimeField(auto_now_add=True, null=True)
 """

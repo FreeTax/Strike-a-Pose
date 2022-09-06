@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from sqlite3 import Cursor
 from urllib.error import HTTPError
 from django.views.decorators import gzip
 from django.shortcuts import render
 from django.http import HttpResponse,StreamingHttpResponse,HttpResponseServerError
 from django.core import serializers
-import cv2
+from django.db import connection
 from django.http import JsonResponse
-from .models import User, Level, Picture, Video, Score
+from .models import  Level, Picture, Video, Score
+from django.contrib.auth.models import User
 # Create your views here.
 
 def getImage(request):
@@ -23,13 +25,15 @@ def setScore(request):
     return JsonResponse({"pippo": "pippo"})
 
 def getScoreByUser(request):
-    user_id = request.GET.get("user_id")
-    score=Score.objects.filter(user_id=user_id).order_by('-points')
-    data = serializers.serialize('json', score)
-    return HttpResponse(data, content_type='application/json')
+    cursor=connection.cursor()
+    user_id=request.GET.get("user_id")
+    cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id WHERE auth_user.id="+user_id+" ORDER BY points DESC")
+    row = cursor.fetchall()
+    return JsonResponse(row, safe=False)
 
 def getScore(request):
-    score=Score.objects.order_by('-points')
-    data = serializers.serialize('json', score)
-    return HttpResponse(data, content_type='application/json')
+    cursor = connection.cursor()
+    cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id ORDER BY points DESC")
+    row = cursor.fetchall()
+    return JsonResponse(row, safe=False)
 
