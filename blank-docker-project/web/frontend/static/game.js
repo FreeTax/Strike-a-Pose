@@ -71,19 +71,20 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
   // console.log(level);
   let round = 0;
 
-  async function sendscore(score) {
+  async function sendscore(time,guessed) {
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
     const response = await axios.get('/frontend/setscore', {
       params: {
         "user_id": user_id,
-        "score": score
+        "time": time,
+        "guessed":guessed
       }
     },)
   }
   const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
   const userVideoList = [];
   const levelPictures = await getPicture(level[0].pk);
-  var timeleft = 10 /*30 * levelPictures.length*/
+  var timeleft = 30 * levelPictures.length
 
   const nextRound = async () => {
     console.log(levelPictures);
@@ -111,24 +112,25 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       scoreLbl.innerHTML = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.6 * 100) {
+      if (computedDistancePercentage >= 0.8 * 100) {
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
-        if (round < levelPictures.length && timeleft>0) {
+        if (round < levelPictures.length && timeleft > 0) {
           await nextRound();
-        } else{
+        } else {
           alert("HAI")
           stopvideo()
-          const score =Math.trunc(timeleft/90+round/levelPictures.length*100)
-          sendscore(score) //inserisci al posto di 10 la variable col punteggio
+          const time = (30 * levelPictures.length)-timeleft
+          sendscore(time,round) //inserisci al posto di 10 la variable col punteggio
         }
       }
-      if(timeleft <=0){
+      if (timeleft <= 0) {
         clearInterval(gameLoop);
         alert("HAI")
-          const score = Math.trunc(timeleft/90+round/levelPictures.length*100)
-          sendscore(score) //inserisci al posto di 10 la variable col punteggio
+        const time = (30 * levelPictures.length)-timeleft
+        //const score = Math.trunc(timeleft / 90 + round / levelPictures.length * 100)
+        sendscore(time,round) //inserisci al posto di 10 la variable col punteggio
       }
       timeleft -= 0.1;
     }, 100);
@@ -186,29 +188,29 @@ function midle_point() {
 
 const parts = []
 var mediaRecorder;
-        window.onload = async function() {
-            
-            navigator.mediaDevices.getUserMedia({
-                video: true
-            }).then(function(stream) {
-                document.getElementById(('videoElement')).srcObject = stream;
-                mediaRecorder = new MediaRecorder(stream);
-                mediaRecorder.start(1000);
-                mediaRecorder.ondataavailable = function(e) {
-                    parts.push(e.data);
-                }
-            });
-        }
-        function stopvideo() {
-            mediaRecorder.stop();
-            var blob = new Blob(parts, {
-                'type': 'video/mp4'
-            });
-            var videoURL = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            document.body.appendChild(a);
-            a.style = 'display: none';
-            a.href = videoURL;
-            a.download = 'test.mp4';
-            a.click();
-        }
+window.onload = async function () {
+
+  navigator.mediaDevices.getUserMedia({
+    video: true
+  }).then(function (stream) {
+    document.getElementById(('videoElement')).srcObject = stream;
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.start(1000);
+    mediaRecorder.ondataavailable = function (e) {
+      parts.push(e.data);
+    }
+  });
+}
+function stopvideo() {
+  mediaRecorder.stop();
+  var blob = new Blob(parts, {
+    'type': 'video/mp4'
+  });
+  var videoURL = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  document.body.appendChild(a);
+  a.style = 'display: none';
+  a.href = videoURL;
+  a.download = 'test.mp4';
+  a.click();
+}

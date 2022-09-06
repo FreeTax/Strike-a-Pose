@@ -11,6 +11,7 @@ from .models import *
 #from .models import  Level, Picture, Video, Score
 from django.contrib.auth.models import User
 from django.db import connection
+import time
 # Create your views here.
 
 def getImage(request):
@@ -52,21 +53,24 @@ def getUserMe():
 
 def setScore(request):
     user_id = request.GET.get("user_id")
-    score=request.GET.get("score")
-    score= Score(user_id=user_id, points=score)
+    p_time=float(request.GET.get("time"))
+    guessed=request.GET.get("guessed")
+    score= Score(user_id=user_id, time=time.strftime('%H:%M:%S.%u', time.gmtime(p_time)),guessed=guessed)
     score.save()
     return JsonResponse({"status": "ok"})
 
 def getScoreByUser(request):
     cursor=connection.cursor()
     user_id=request.GET.get("user_id")
-    cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id WHERE auth_user.id="+user_id+" ORDER BY points DESC")
+    cursor.execute("SELECT frontend_score.time,frontend_score.guessed, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id WHERE auth_user.id="+user_id+" ORDER BY guessed DESC, time ASC")
+    #cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id WHERE auth_user.id="+user_id+" ORDER BY points DESC")
     row = cursor.fetchall()
     return JsonResponse(row, safe=False)
 
 def getScore(request):
     cursor = connection.cursor()
-    cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id ORDER BY points DESC")
+    cursor.execute("SELECT frontend_score.time,frontend_score.guessed,frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id ORDER BY guessed DESC, time ASC")
+    #cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id ORDER BY points DESC")
     row = cursor.fetchall()
     return JsonResponse(row, safe=False)
 
