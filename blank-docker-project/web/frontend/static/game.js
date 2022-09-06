@@ -108,7 +108,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       scoreLbl.innerHTML = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.8 * 100) {
+      if (computedDistancePercentage >= 0.6 * 100) {
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
@@ -116,6 +116,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
           await nextRound();
         } else {
           alert("HAI")
+          stopvideo()
           sendscore(10) //inserisci al posto di 10 la variable col punteggio
         }
       }
@@ -173,3 +174,31 @@ function midle_point() {
   console.log(y)
 }
 
+const parts = []
+var mediaRecorder;
+        window.onload = async function() {
+            
+            navigator.mediaDevices.getUserMedia({
+                video: true
+            }).then(function(stream) {
+                document.getElementById(('videoElement')).srcObject = stream;
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start(1000);
+                mediaRecorder.ondataavailable = function(e) {
+                    parts.push(e.data);
+                }
+            });
+        }
+        function stopvideo() {
+            mediaRecorder.stop();
+            var blob = new Blob(parts, {
+                'type': 'video/mp4'
+            });
+            var videoURL = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            document.body.appendChild(a);
+            a.style = 'display: none';
+            a.href = videoURL;
+            a.download = 'test.mp4';
+            a.click();
+        }
