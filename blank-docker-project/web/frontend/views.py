@@ -12,6 +12,7 @@ from .models import *
 from django.contrib.auth.models import User
 from django.db import connection
 import time
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def getImage(request):
@@ -71,7 +72,7 @@ def getScore(request):
     row = cursor.fetchall()
     return JsonResponse(row, safe=False)
 
-
+@login_required(redirect_field_name='login')
 def start(request):
-    return render(request, 'frontend/start.html')
+    return render(request, 'start.html')
 
