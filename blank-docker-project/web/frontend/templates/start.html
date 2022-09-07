@@ -22,29 +22,30 @@
         <a id="logoutBtn" class="btn btn-default btn-sm" href="{% url 'logout' %}">log out</a> 
     </div>
     <div id="level-list" class="flex-container"></div>
-</body>
-<script type="module">
-    import {getLevels,getPicture} from "{% static 'fetchUtils.js' %}";
+    <script type="module">
+        import {getLevels,getPicture} from "{% static 'fetchUtils.js' %}";
+        
+            const levelList = await getLevels();
+            const levelListEl = document.getElementById("level-list");
+            levelList.forEach(async(levelItem) => {
+                const images= await getPicture(levelItem.pk);
+                console.log(images)
+                
+                levelListEl.innerHTML+=`
+            <div class="card mb-3">
     
-        const levelList = await getLevels();
-        const levelListEl = document.getElementById("level-list");
-        levelList.forEach(async(levelItem) => {
-            const images= await getPicture(levelItem.pk);
-            console.log(images)
-            
-            levelListEl.innerHTML+=`
-        <div class="card mb-3">
+                    <h2 class="card-title" >${levelItem.fields.name}</h2>
+                    <h5 class="card-subtitle mb-2 text-muted">${images.length} opere</h5>
+                    <p class="card-text">
+                    ${levelItem.fields.description}
+                    </p>
+                    <a class="btn btn-primary btn-block" href="/game?id=${levelItem.pk}">GIOCA</a>
+    
+            </div>`;
+            });
+    
+    </script>
+</body>
 
-                <h2 class="card-title" >${levelItem.fields.name}</h2>
-                <h5 class="card-subtitle mb-2 text-muted">${images.length} opere</h5>
-                <p class="card-text">
-                ${levelItem.fields.description}
-                </p>
-                <a class="btn btn-primary btn-block" href="../game?id=${levelItem.pk}">GIOCA</a>
-
-        </div>`;
-        });
-
-</script>
 
 </html>

@@ -72,4 +72,6 @@ def getScore(request):
     return JsonResponse(row, safe=False)
 
 
+def start(request):
+    return render(request, 'frontend/start.html')
 

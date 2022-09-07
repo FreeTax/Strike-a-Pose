@@ -1,0 +1,52 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.card {
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: row;
+    background: #6b7b71;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    margin: 2% 5%;
+    padding: 12%;
+    align-content: initial;
+    border-radius: 6px;
+    opacity: 0.85;
+    max-width: 600px;
+}
+
+
+.card a{
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    background-color:#f5f5f5;
+    color:#212121;
+    text-align: center;
+    border-radius: 6px;
+    margin: auto;
+    width: 80%;
+    height: 60px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+    max-width: 90%;
+    opacity: 100%;
+}
+
+.login {
+    background-image: url("assets/sfondo_start.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  /*  background-position: center center;*/
+}
