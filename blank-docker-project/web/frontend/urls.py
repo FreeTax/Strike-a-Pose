@@ -20,7 +20,6 @@ from . import views
 
 urlpatterns = [
     re_path(r'^home/$', TemplateView.as_view(template_name="index.html"), name="home"),
-    #re_path(r'^home/$', views.index),
     path('getimg', views.getImage),
     path('setscore', views.setScore),
     path('getscorebyuser', views.getScoreByUser),
@@ -28,6 +27,7 @@ urlpatterns = [
     path('getlvl', views.getLevel),
     path('getlvls', views.getLevels),
     re_path(r'^game/$', TemplateView.as_view(template_name="game.html")),
-    re_path(r'^start/$', TemplateView.as_view(template_name="start.html")),
-    re_path(r'^end/$', TemplateView.as_view(template_name="end.html"))
+    re_path(r'^start/$', TemplateView.as_view(template_name="start.html"), name="start"),
+    re_path(r'^end/$', TemplateView.as_view(template_name="end.html")),
+    re_path(r'', TemplateView.as_view(template_name="index.html"), name="home"),
 ]

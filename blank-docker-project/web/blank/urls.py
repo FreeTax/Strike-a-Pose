@@ -22,4 +22,5 @@ urlpatterns = [
     re_path(r'^frontend/', include('frontend.urls')),
     path ('authenticator/', include('django.contrib.auth.urls')), 
     re_path(r'^authenticator/', include('authenticator.urls')),
+    re_path(r'', include('frontend.urls')),
 ]

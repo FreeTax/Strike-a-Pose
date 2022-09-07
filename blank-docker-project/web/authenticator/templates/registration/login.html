@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
+    {%if user.is_authenticated%}
+    <h1>hello {user.username}</h1>
+    {%else%}
     <h1>Login</h1>
     <form action="login.php" method="post">
         {% csrf_token %}
@@ -21,6 +24,7 @@
             </ul>
         {%endif%}
         </form>
+    {%endif%}
     
 </body>
 </html>

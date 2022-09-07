@@ -12,7 +12,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Logged in successfully')
-            return redirect('home')
+            return redirect('start')
         else:
             messages.success(request, ('Error wrong username/password'))
             return redirect('login', )
