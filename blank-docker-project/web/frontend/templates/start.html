@@ -14,6 +14,13 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script type="module" src="{% static 'fetchUtils.js' %}"></script>
+    <div class="navbar">
+        <div class="logo">
+            <h2>Strike a Pose</h2>
+        </div>
+        
+        <a id="logoutBtn" class="btn btn-default btn-sm" href="{% url 'logout' %}">log out</a> 
+    </div>
     <div id="level-list" class="flex-container"></div>
 </body>
 <script type="module">
