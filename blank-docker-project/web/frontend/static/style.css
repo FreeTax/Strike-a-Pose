@@ -75,7 +75,7 @@ body{
     display: flex;
     flex-flow: wrap;
     flex-direction: row;
-    background: #6b7b71;
+    background: rgba(107, 123, 113, 0.9);
     color: white;
     font-weight: bold;
     text-align: left;
@@ -83,7 +83,6 @@ body{
     padding: 12%;
     align-content: initial;
     border-radius: 6px;
-    opacity: 0.85;
     max-width: 600px;
 }
 
