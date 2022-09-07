@@ -72,7 +72,7 @@ def getScore(request):
     row = cursor.fetchall()
     return JsonResponse(row, safe=False)
 
-@login_required(redirect_field_name='login')
+@login_required(login_url='/authenticator/login')
 def start(request):
     return render(request, 'start.html')
 
