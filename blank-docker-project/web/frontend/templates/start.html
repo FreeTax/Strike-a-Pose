@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static%}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
-<body>
+<body class="start">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script type="module" src="{% static 'fetchUtils.js' %}"></script>
-    <h1>Start</h1>
-    <div id="level-list"></div>
+    <div id="level-list" class="flex-container"></div>
 </body>
 <script type="module">
     import {getLevels,getPicture} from "{% static 'fetchUtils.js' %}";

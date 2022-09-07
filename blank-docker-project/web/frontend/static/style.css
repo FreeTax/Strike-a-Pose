@@ -22,7 +22,7 @@
     height: 480;
 }
 
-#paint{
+#paint {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -48,6 +48,53 @@
     z-index: 10;
 }
 
-#endContainer{
+#endContainer {
     display: none;
+}
+
+.flex-container {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-around;
+
+    padding: 0;
+    margin: 0;
+}
+
+.card {
+    display: flex;
+    flex-flow: column wrap;
+    background: #6b7b71;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    margin: 2% 5%;
+    padding: 2%;
+    align-content: initial;
+    border-radius: 6px;
+    opacity: 0.9;
+
+}
+
+.card-body {
+    padding: 0 3vw 3vw;
+}
+
+.card-body a{
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    background-color:#f5f5f5;
+    color:#212121;
+    text-align: center;
+    border-radius: 6px;
+    padding: 3vw 33vw ;
+    opacity: 100%;
+}
+
+.start {
+    background-image: url("assets/sfondo_end.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+  /*  background-position: center center;*/
 }
