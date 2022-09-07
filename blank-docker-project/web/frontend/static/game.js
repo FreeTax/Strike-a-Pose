@@ -260,14 +260,14 @@ async function showImageInfos(id){
   for (var i = 0; i < PicuresList.length; i++) {
     carousel.innerHTML += `
     <div class="mySlides fade">
-    <img id="slideImg" src='../../${PicuresList[i].fields.path}'">
+    <img class="slideImg" src='../../${PicuresList[i].fields.path}' width="640"">
     <div class="text">${PicuresList[i].fields.description}</div>
     </div>
      `;
   }
   carousel.innerHTML+=`<a id="prev">❮</a><a id="next">❯</a>`;
   
-  document.getElementById('slideImg').width=document.getElementById('videoElement').width
+  document.getElementsByClassName('slideImg').width=document.getElementById('videoElement').width
   document.getElementById("prev").onclick = function() {plusSlides(-1)};
   document.getElementById("next").onclick = function() {plusSlides(1)};
   showSlides(1)
