@@ -27,14 +27,14 @@
             
             levelListEl.innerHTML+=`
         <div class="card mb-3">
-            <div class="card-body">
+
                 <h2 class="card-title" >${levelItem.fields.name}</h2>
                 <h5 class="card-subtitle mb-2 text-muted">${images.length} opere</h5>
                 <p class="card-text">
                 ${levelItem.fields.description}
                 </p>
                 <a class="btn btn-primary btn-block" href="../game?id=${levelItem.pk}">GIOCA</a>
-            </div>
+
         </div>`;
         });
 

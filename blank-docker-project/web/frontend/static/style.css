@@ -1,3 +1,8 @@
+body{
+    display: flex;
+    justify-content: center;
+    
+}
 #videoElement {
     position: absolute;
     margin-left: auto;
@@ -63,23 +68,22 @@
 
 .card {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: wrap;
+    flex-direction: row;
     background: #6b7b71;
     color: white;
     font-weight: bold;
     text-align: left;
     margin: 2% 5%;
-    padding: 2%;
+    padding: 12%;
     align-content: initial;
     border-radius: 6px;
     opacity: 0.9;
+    max-width: 600px;
 }
 
-.card-body {
-    padding: 0 3vw 3vw;
-}
 
-.card-body a{
+.card a{
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -87,7 +91,14 @@
     color:#212121;
     text-align: center;
     border-radius: 6px;
-    padding: 3vw 33vw ;
+    margin: auto;
+    width: 80%;
+    height: 60px;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+    
+    max-width: 90%;
     opacity: 100%;
 }
 
@@ -95,5 +106,8 @@
     background-image: url("assets/sfondo_end.png");
     background-repeat: no-repeat;
     background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
   /*  background-position: center center;*/
 }
