@@ -18,32 +18,31 @@
         <div class="logo">
             <h2>Strike a Pose</h2>
         </div>
-        
-        <a id="logoutBtn" class="btn btn-default btn-sm" href="{% url 'logout' %}">log out</a> 
+
+        <a id="logoutBtn" class="btn btn-default btn-sm" href="{% url 'logout' %}">log out</a>
     </div>
     <div id="level-list" class="flex-container"></div>
     <script type="module">
-        import {getLevels,getPicture} from "{% static 'fetchUtils.js' %}";
+        import { getLevels, getPicture } from "{% static 'fetchUtils.js' %}";
+
+        const levelList = await getLevels();
+        const levelListEl = document.getElementById("level-list");
         
-            const levelList = await getLevels();
-            const levelListEl = document.getElementById("level-list");
-            levelList.forEach(async(levelItem) => {
-                const images= await getPicture(levelItem.pk);
-                console.log(images)
-                
-                levelListEl.innerHTML+=`
-            <div class="card mb-3">
-    
-                    <h2 class="card-title" >${levelItem.fields.name}</h2>
-                    <h5 class="card-subtitle mb-2 text-muted">${images.length} opere</h5>
-                    <p class="card-text">
-                    ${levelItem.fields.description}
-                    </p>
-                    <a class="btn btn-primary btn-block" href="/game?id=${levelItem.pk}">GIOCA</a>
-    
-            </div>`;
-            });
-    
+        for (var i = 0; i < levelList.length; i++) {
+            const images = await getPicture(levelList[i].pk);
+            console.log(images)
+
+            levelListEl.innerHTML += `
+        <div class="card mb-3">
+                <h2 class="card-title" >${levelList[i].fields.name}</h2>
+                <h5 class="card-subtitle mb-2 text-muted">${images.length} opere</h5>
+                <p class="card-text">
+                ${levelList[i].fields.description}
+                </p>
+                <a class="btn btn-primary btn-block" href="../game?id=${levelList[i].pk}">GIOCA</a>
+        </div>`;
+        };
+
     </script>
 </body>
 

@@ -71,13 +71,13 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
   // console.log(level);
   let round = 0;
 
-  async function sendscore(time,guessed) {
+  async function sendscore(time, guessed) {
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
     const response = await axios.get('/frontend/setscore', {
       params: {
         "user_id": user_id,
         "time": time,
-        "guessed":guessed
+        "guessed": guessed
       }
     },)
   }
@@ -112,7 +112,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       scoreLbl.innerHTML = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.6 * 100) {
+      if (computedDistancePercentage >= 0.2 * 100) {
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
@@ -121,16 +121,16 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
         } else {
           alert("HAI")
           stopvideo()
-          const time = (30 * levelPictures.length)-timeleft
-          sendscore(time,round) //inserisci al posto di 10 la variable col punteggio
+          const time = (30 * levelPictures.length) - timeleft
+          sendscore(time, round) //inserisci al posto di 10 la variable col punteggio
         }
       }
       if (timeleft <= 0) {
         clearInterval(gameLoop);
         alert("HAI")
-        const time = (30 * levelPictures.length)-timeleft
+        const time = (30 * levelPictures.length) - timeleft
         //const score = Math.trunc(timeleft / 90 + round / levelPictures.length * 100)
-        sendscore(time,round) //inserisci al posto di 10 la variable col punteggio
+        sendscore(time, round) //inserisci al posto di 10 la variable col punteggio
       }
       timeleft -= 0.1;
     }, 100);
@@ -207,31 +207,77 @@ function stopvideo() {
     'type': 'video/mp4'
   });
   var videoURL = URL.createObjectURL(blob);
-  const end=document.getElementById('endContainer')
-  const start=document.getElementById('gameContainer')
-  const video2=document.getElementById('videoElement2')
-  video2.src=videoURL
+  const end = document.getElementById('endContainer')
+  const start = document.getElementById('gameContainer')
+  const video2 = document.getElementById('videoElement2')
+  video2.src = videoURL
   video2.play()
-  start.style.display="none"
-  end.style.display="block"
+  start.style.display = "none"
+  end.style.display = "block"
 }
 
 /* end game function */
-getdata()
-        var table = document.getElementById("table");
-        function printTable(data){
-            for (var i = 0; i < data.length; i++) {
-                var row = `<tr>
+getdata();
+
+var table = document.getElementById("table");
+
+function printTable(data) {
+  for (var i = 0; i < data.length; i++) {
+    var row = `<tr>
                                 <td>${data[i][0]}</td>
                                 <td>${data[i][1]}</td>
                                 <td>${data[i][2]}</td>
                                 <td>${data[i][3]}</td>
                             </tr>`;
-                table.innerHTML += row;
-            }
-        }
-        async function getdata(){
-            var response = await axios.get('http://localhost:8000/frontend/getscore');
-            console.log(response.data);
-            printTable(response.data);
-        }
+    table.innerHTML += row;
+  }
+}
+
+var carousel = document.getElementById("slideshow-container");
+var slideIndex = 1;
+
+export function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+export function showSlides(n) {
+  let slides = document.getElementsByClassName("mySlides");
+  if (n > slides.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = slides.length }
+  for (var i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex - 1].style.display = "block";
+}
+
+async function showImageInfos(id){
+  const PicuresList = await getPicture(id);
+  //const levelListEl = document.getElementById("level-list");
+  for (var i = 0; i < PicuresList.length; i++) {
+    carousel.innerHTML += `
+    <div class="mySlides fade">
+    <img id="slideImg" src='../../${PicuresList[i].fields.path}'">
+    <div class="text">${PicuresList[i].fields.description}</div>
+    </div>
+     `;
+  }
+  carousel.innerHTML+=`<a id="prev">❮</a><a id="next">❯</a>`;
+  
+  document.getElementById('slideImg').width=document.getElementById('videoElement').width
+  document.getElementById("prev").onclick = function() {plusSlides(-1)};
+  document.getElementById("next").onclick = function() {plusSlides(1)};
+  showSlides(1)
+}
+
+async function getdata() {
+  var response = await axios.get('http://localhost:8000/frontend/getscore');
+  console.log(response.data);
+  printTable(response.data);
+  const params = new URLSearchParams(window.location.search)
+  const levelId = params.get('id');
+  await showImageInfos(levelId);
+}
