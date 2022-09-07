@@ -15,12 +15,9 @@ import time
 # Create your views here.
 
 def getImage(request):
-    """pippo=request.GET.get("test")
-    return JsonResponse({"pippo": pippo})"""
     id=request.GET.get("id")
     response = {}
     response['proposal_list'] = serializers.serialize("json", Picture.objects.filter(level=id))
-    #data = {"SomeModel_json": SomeModel_json}
     return JsonResponse(response)
 
 def getLevel(request):

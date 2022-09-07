@@ -30,7 +30,7 @@
 
     <h1>Game</h1>
     <!--<img src="{% static 'assets/logo.png' %}">-->
-    <div id="Container">
+    <div id="gameContainer" class="container">
         <video autoplay="true" id="videoElement" width="640" height="480"></video>
         <canvas id="myCanvas" width="640" height="480"></canvas>
         <label>Score</label><label style="font-size:40px;" id="score"></label>
@@ -38,6 +38,12 @@
         <img id="paint" height="480" width="480" src="{% static 'assets/opere/img15.jpeg' %}">
         <canvas id="myCanvasp" width="480" height="480"></canvas>
         
+    </div>
+    <div id="endContainer" class="container">
+        <video id="videoElement2" width="640" height="480" controls loop></video>
+        <table align = "center"
+            id="table" border="1">
+        </table>
     </div>
 
     <script type="module">

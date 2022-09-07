@@ -112,7 +112,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       scoreLbl.innerHTML = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.8 * 100) {
+      if (computedDistancePercentage >= 0.6 * 100) {
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
@@ -195,7 +195,7 @@ window.onload = async function () {
   }).then(function (stream) {
     document.getElementById(('videoElement')).srcObject = stream;
     mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.start(1000);
+    mediaRecorder.start(100);
     mediaRecorder.ondataavailable = function (e) {
       parts.push(e.data);
     }
@@ -207,10 +207,31 @@ function stopvideo() {
     'type': 'video/mp4'
   });
   var videoURL = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  document.body.appendChild(a);
-  a.style = 'display: none';
-  a.href = videoURL;
-  a.download = 'test.mp4';
-  a.click();
+  const end=document.getElementById('endContainer')
+  const start=document.getElementById('gameContainer')
+  const video2=document.getElementById('videoElement2')
+  video2.src=videoURL
+  video2.play()
+  start.style.display="none"
+  end.style.display="block"
 }
+
+/* end game function */
+getdata()
+        var table = document.getElementById("table");
+        function printTable(data){
+            for (var i = 0; i < data.length; i++) {
+                var row = `<tr>
+                                <td>${data[i][0]}</td>
+                                <td>${data[i][1]}</td>
+                                <td>${data[i][2]}</td>
+                                <td>${data[i][3]}</td>
+                            </tr>`;
+                table.innerHTML += row;
+            }
+        }
+        async function getdata(){
+            var response = await axios.get('http://localhost:8000/frontend/getscore');
+            console.log(response.data);
+            printTable(response.data);
+        }
