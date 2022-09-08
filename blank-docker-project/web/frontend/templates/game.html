@@ -31,6 +31,7 @@
     <h1>Game</h1>
     <!--<img src="{% static 'assets/logo.png' %}">-->
     <div id="gameContainer" class="container">
+        
         <video autoplay="true" id="videoElement" width="640" height="480"></video>
         <canvas id="myCanvas" width="640" height="480"></canvas>
         <label>Score</label><progress value="0" max="100" id="score"></progress>
@@ -42,11 +43,33 @@
             <h2>Caricamento...</h2></div>
     </div>
     <div id="endContainer" class="flex-container">
-        <video id="videoElement2" width="640" height="480" controls loop></video>
-        <a href="{% url 'start' %}">gioca ancora</a>
-        <div id="slideshow-container" class="flex-container"></div>
-        <table align="center" id="table" border="1">
-        </table>
+        <button onclick="inforOpereClick()">info opere</button>
+        <div><div id="slideshow-container" class="flex-container"></div></div>
+        <button onclick="videoClick()">video</button>
+        <div><video id="videoElement2" width="640" height="480" controls loop></video></div>
+        <button onclick="scoreCLick()">classifica</button>
+        <div><table align="center" id="table" >
+        </table></div>
+        <a href="{% url 'start' %}" ><button style="background-color: #fff; color: #6b7b71; ">gioca ancora </button></a>
+        <script>
+            /* end game function */
+function inforOpereClick(){
+  document.getElementById('slideshow-container').style.display = "block";
+  document.getElementById('table').style.display = "none";
+  document.getElementById('videoElement2').style.display = "none";
+}
+function videoClick(){
+  document.getElementById('slideshow-container').style.display = "none";
+  document.getElementById('table').style.display = "none";
+  document.getElementById('videoElement2').style.display = "block";
+}
+function scoreCLick(){
+  document.getElementById('slideshow-container').style.display = "none";
+  document.getElementById('table').style.display = "block";
+  document.getElementById('videoElement2').style.display = "none";
+}
+        </script>
+        
         
         
     </div>

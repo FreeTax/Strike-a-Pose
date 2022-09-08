@@ -178,6 +178,7 @@ function stopvideo() {
   video2.play()
   start.style.display = "none"
   end.style.display = "block"
+  
 }
 
 /* end game function */
@@ -245,3 +246,4 @@ async function getdata() {
   const levelId = params.get('id');
   await showImageInfos(levelId);
 }
+

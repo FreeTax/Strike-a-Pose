@@ -6,6 +6,14 @@ body{
     padding: 0px;
     margin: 0px;
     width: 100%;
+    background-image: url("assets/sfondo_end.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  /*  background-position: center center;*/
+}
 
 }
 #videoElement {
@@ -253,5 +261,35 @@ body{
     justify-content: center;
     color: #fff;
 }
+
+#videoElement2{
+    display: none;
+}
+#table{
+    display: none;
+    background-color: rgba(107, 123, 113, 0.9);
+    color: white;
+    border-radius: 10px;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+    margin: 1vh 0;
+}
+#table td, #table th {
+  border: none;
+  text-align: left;
+  padding: 8px;
+}
+
+#endContainer button{
+    background-color: rgba(107, 123, 113, 0.9);
+    color: white;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    width: 15vw;
+    border-radius: 10px;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+    margin: 1vh 0;
+
+}
+
 
 
