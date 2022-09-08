@@ -109,10 +109,10 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       const computedDistance = distanceFromImg(videoKPs);
       const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.8) * 100).toFixed(0);
 
-      scoreLbl.innerHTML = computedDistancePercentage;
+      scoreLbl.value = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.2 * 100) {
+      if (computedDistancePercentage >= 0.8 * 100) {
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
