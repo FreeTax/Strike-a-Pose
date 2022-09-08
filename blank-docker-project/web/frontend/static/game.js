@@ -47,7 +47,7 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl
   vidCanvas.width=video.width;
   vidCanvas.height=video.height;
   imageCanvas.width=image.width;
-  imageCanvas.height=image.height;
+  imageCanvas.height=image.width;
 
   const vidCtx = videoCanvas.getContext("2d");
   vidCtx.translate(vidCanvas.width, 0);
@@ -111,18 +111,17 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.8) * 100).toFixed(0);
 
       scoreLbl.value = computedDistancePercentage;
-      console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.6 * 100) {
+      if (computedDistancePercentage >= 0.8 * 100) {
         clearInterval(gameLoop)
-        console.log("MATCH")
         round++;
         if (round < levelPictures.length && timeleft > 0) {
           await nextRound();
         } else {
           stopvideo()
           const time = (30 * levelPictures.length) - timeleft
-          sendscore(time, round) 
+          await sendscore(time, round)
+          getdata(); 
           setEnd(round, time)
         }
       }
@@ -130,7 +129,8 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
         clearInterval(gameLoop);
         stopvideo()
         const time = (30 * levelPictures.length) - timeleft
-        sendscore(time, round)
+        await sendscore(time, round)
+        getdata();
         setEnd(round, time) 
       }
       timeleft -= 0.1;
@@ -192,7 +192,7 @@ function setEnd(score, time){
 }
 
 /* end game function */
-getdata();
+
 
 var table = document.getElementById("table");
 
@@ -250,7 +250,6 @@ async function showImageInfos(id){
 
 async function getdata() {
   var response = await axios.get('http://localhost:8000/frontend/getscore');
-  console.log(response.data);
   printTable(response.data);
   const params = new URLSearchParams(window.location.search)
   const levelId = params.get('id');

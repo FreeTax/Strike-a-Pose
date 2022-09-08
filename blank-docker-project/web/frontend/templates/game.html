@@ -8,6 +8,9 @@
     <title>Document</title>
     {% load static%}
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body id="game">
@@ -28,26 +31,20 @@
     <!--Load Utils-->
     <script type="module" src="{% static 'utils.js' %}"></script>
     <!--<img src="{% static 'assets/logo.png' %}">-->
-    <div id="gameContainer" class="flex-container">
-        <div class="game-card">
-            <label>Score</label><progress value="0" max="100" id="score"></progress>
-            <label>Time:</label><label style="font-size:40px;" id="time"></label>
-        </div>
-        <div class="game-card">
-                <video autoplay="true" id="videoElement"></video>
-                <canvas id="myCanvas"></canvas>
-        </div>
-        <div class="game-card">
-                <img id="paint" src="{% static 'assets/opere/img15.jpeg' %}">
-                <canvas id="myCanvasp"></canvas>
-        </div>
+    <div id="gameContainer" class="container">
+
+        <video autoplay="true" id="videoElement" ></video>
+        <canvas id="myCanvas" ></canvas>
+        <label>Score</label><progress value="0" max="100" id="score"></progress>
+        <label>Time:</label><label style="font-size:40px;" id="time"></label>
+        <img id="paint"  src="{% static 'assets/opere/img15.jpeg' %}">
+        <canvas id="myCanvasp" ></canvas>
         <div id="loading">
             <img src="{% static 'assets/loading.gif' %}">
             <h2>Caricamento...</h2>
         </div>
     </div>
     <div id="endContainer" class="flex-container">
-        <h1>Game Over</h1>
         <div id="gameoverCard">
             <div><h1>Game Over</h1></div>
             <div><h2>Score: <span id="scoreEnd"></span></h2></div>
@@ -62,8 +59,14 @@
         <button onclick="videoClick()" class="greenButton">video</button>
         <div><video id="videoElement2" width="640" height="480" controls loop></video></div>
         <button onclick="scoreCLick()" class="greenButton">classifica</button>
-        <div>
-            <table align="center" id="table">
+        <div id="tableDiv">
+            <table id="table" style="overflow-x:auto;">
+                <tr>
+                    <th>Tempo</th>
+                    <th>Pose</th>
+                    <th>Data</th>
+                    <th>Utente</th>
+                </tr>
             </table>
         </div>
         <a href="{% url 'start' %}"><button class="whiteButton"">gioca ancora </button></a>
@@ -85,9 +88,6 @@
                 document.getElementById('videoElement2').style.display = "none";
             }
         </script>
-
-
-
     </div>
 
     <script type="module">

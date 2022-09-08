@@ -13,44 +13,58 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
   /*  background-position: center center;*/
+  font-family: 'Roboto', sans-serif;
+
 }
 
 #videoElement {
+    position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
     text-align: center;
     z-index: -1;
+    width: 100%;
+    height: auto;
+    max-width: 600px;
     clip-path: inset(0 80px);
 }
 
 #myCanvas {
+    position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
     text-align: center;
     z-index: 10;
+    width: 100%;
+    height: auto;
+    max-width: 600px;
     clip-path: inset(0 80px);
-    max-width: 100%;
 }
 
 #paint {
-    position: relative;
+    position: absolute;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 500px;
+    left: 0;
+    right: 0;
     text-align: center;
     z-index: -1;
-    width: 480px;
-    height: 480px;
+    width: 100%;
+    max-width: 440px;
     -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
+    transform: scaleX(-1);    
 }
 
 #myCanvasp {
+    position: absolute;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 500px;
     left: 0;
     right: 0;
     text-align: center;
@@ -73,7 +87,7 @@ body{
 .card,.game-card{
     display: flex;
     flex-flow: wrap;
-    flex-direction: row;
+    flex-direction: column;
     background: rgba(107, 123, 113, 0.9);
     color: white;
     font-weight: bold;
@@ -94,6 +108,10 @@ body{
     background-color: #3e413f;
 }
 
+.card h2{
+    margin-top:0;
+    margin-bottom:0;
+}
 .card a{
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -241,7 +259,19 @@ body{
     #loading img{
         width: 200px;
     }
+    #paint {
+        margin-top: 300px;
+    }
+    
+    #myCanvasp {
+        margin-top: 300px;
+    }
+    #endContainer {
+        padding-left:10px;
+        padding-right:10px;
+    }
 }
+
 
 #loading {
     position: absolute;
@@ -263,6 +293,9 @@ body{
 
 #videoElement2{
     display: none;
+    width: 100%;
+    height: auto;
+    max-width: 600px;
 }
 #table{
     display: none;
@@ -271,24 +304,28 @@ body{
     border-radius: 10px;
     border: solid rgba(107, 123, 113, 0.9) 1px;
     margin: 1vh 0;
+    width: 100%;
+    
 }
 #table td, #table th {
   border: none;
   text-align: left;
   padding: 8px;
 }
+
 #endContainer{
     display: none;
     flex-direction: column;
+    width: 100%;
+    max-width: 600px;
 }
 #endContainer button{
-
     padding-top: 1vh;
     padding-bottom: 1vh;
-    width: 15vw;
     border-radius: 10px;
-
     margin: 1vh 0;
+    width: 150px;
+
 
 }
 .greenButton{
@@ -326,6 +363,7 @@ body{
     align-content: initial;
     border-radius: 6px;
     max-width: 640px;
+    margin-top: 20px;
 }
 #gameoverCard h2{
     font-size: 20px;
@@ -339,3 +377,8 @@ body{
     padding: 0;
 }
 
+.slideImg{
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+}

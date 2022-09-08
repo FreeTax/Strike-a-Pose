@@ -8,6 +8,7 @@
     <title>Document</title>
     {% load static%}
     <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body class="login">
@@ -26,17 +27,17 @@
             <input type="password" name="password" placeholder="Password">
             <button type="submit" name="submit">Login </button>
         </form>
-        <a href="{% url 'register' %}">Sing up?</a>
+        {%if messages%}
+        {% for message in messages %}
+        {% if message.tags == 'ERROR' %}
+        <h2> username\password errati </h2>
+
+        {% endif %}
+        {% endfor %}
+    {%endif%}
+        <a href="{% url 'register' %}" >Sign up?</a>
     </div>
 
-    {%if messages%}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {%endif%}
-    </form>
     {%endif%}
 
 </body>

@@ -7,6 +7,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
+
 }
 
 .card {
@@ -35,6 +37,7 @@ body {
   width: 100%;
   text-decoration: none;
   text-align: center;
+  font-size: 18px;
 }
 .card a:hover {
   opacity: 0.8;
@@ -67,6 +70,7 @@ button {
   border: none;
   cursor: pointer;
   width: 100%;
+  font-size: 18px;
 }
 
 button:hover {
