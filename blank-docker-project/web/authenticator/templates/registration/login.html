@@ -12,7 +12,7 @@
 
 <body class="login">
     {%if user.is_authenticated%}
-    <h1>hello {user.username}</h1>
+    <a href="{% url 'start' %}">Inizia a giocare</a>
     {%else%}
 
     <div class="card mb-3">
