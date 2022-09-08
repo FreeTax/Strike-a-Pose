@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
-<body>
+<body id="game">
     {% if user.is_authenticated%}
     {{ request.user.id|json_script:"user_id" }}
 
@@ -30,16 +30,23 @@
 
     <h1>Game</h1>
     <!--<img src="{% static 'assets/logo.png' %}">-->
-    <div id="gameContainer" class="container">
-        <video autoplay="true" id="videoElement" width="640" height="480"></video>
-        <canvas id="myCanvas" width="640" height="480"></canvas>
-        <label>Score</label><progress value="0" max="100" id="score"></progress>
-        <label>Time:</label><label style="font-size:40px;" id="time"></label>
-        <img id="paint" height="480" width="480" src="{% static 'assets/opere/img15.jpeg' %}">
-        <canvas id="myCanvasp" width="480" height="480"></canvas>
-        <div id="loading"> 
+    <div id="gameContainer" class="flex-container">
+        <div class="game-card">
+            <label>Score</label><progress value="0" max="100" id="score"></progress>
+            <label>Time:</label><label style="font-size:40px;" id="time"></label>
+        </div>
+        <div class="game-card">
+                <video autoplay="true" id="videoElement"></video>
+                <canvas id="myCanvas"></canvas>
+        </div>
+        <div class="game-card">
+                <img id="paint" src="{% static 'assets/opere/img15.jpeg' %}">
+                <canvas id="myCanvasp"></canvas>
+        </div>
+        <div id="loading">
             <img src="{% static 'assets/loading.gif' %}">
-            <h2>Caricamento...</h2></div>
+            <h2>Caricamento...</h2>
+        </div>
     </div>
     <div id="endContainer" class="flex-container">
         <video id="videoElement2" width="640" height="480" controls loop></video>
@@ -47,8 +54,8 @@
         <div id="slideshow-container" class="flex-container"></div>
         <table align="center" id="table" border="1">
         </table>
-        
-        
+
+
     </div>
 
     <script type="module">
@@ -68,14 +75,11 @@
         const paintElement = document.getElementById('paint');
         paintElement.src = "";
         const canvasElementp = document.getElementById('myCanvasp')
-        canvasElementp.style.width = paintElement.clientWidth;
-        canvasElementp.style.height = paintElement.clientHeight;
         const webcamElement = document.getElementById('videoElement');
         const canvasElement = document.getElementById('myCanvas');
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
         const queryParams = new URLSearchParams(window.location.search);
         const levelId = queryParams.get("id");
-
 
         await webcam.start()
             .then(result => {
@@ -83,8 +87,8 @@
             })
             .catch(err => {
                 console.log(err);
-            });        
-            
+            });
+
     </script>
     {%else%}
     <h1>Not logged in</h1>
