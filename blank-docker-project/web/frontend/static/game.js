@@ -123,13 +123,15 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
           stopvideo()
           const time = (30 * levelPictures.length) - timeleft
           sendscore(time, round) 
+          setEnd(round, time)
         }
       }
       if (timeleft <= 0) {
         clearInterval(gameLoop);
         stopvideo()
         const time = (30 * levelPictures.length) - timeleft
-        sendscore(time, round) 
+        sendscore(time, round)
+        setEnd(round, time) 
       }
       timeleft -= 0.1;
     }, 100);
@@ -181,7 +183,12 @@ function stopvideo() {
   video2.src = videoURL
   video2.play()
   start.style.display = "none"
-  end.style.display = "block"
+  end.style.display = "flex"
+
+}
+function setEnd(score, time){
+  document.getElementById('scoreEnd').innerHTML = score
+  document.getElementById('timeEnd').innerHTML = time.toFixed( 2 )
 }
 
 /* end game function */
@@ -249,3 +256,4 @@ async function getdata() {
   const levelId = params.get('id');
   await showImageInfos(levelId);
 }
+

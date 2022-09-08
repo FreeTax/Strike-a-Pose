@@ -6,8 +6,15 @@ body{
     padding: 0px;
     margin: 0px;
     width: 100%;
-
+    background-image: url("assets/sfondo_end.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  /*  background-position: center center;*/
 }
+
 #videoElement {
     margin-left: auto;
     margin-right: auto;
@@ -254,4 +261,81 @@ body{
     color: #fff;
 }
 
+#videoElement2{
+    display: none;
+}
+#table{
+    display: none;
+    background-color: rgba(107, 123, 113, 0.9);
+    color: white;
+    border-radius: 10px;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+    margin: 1vh 0;
+}
+#table td, #table th {
+  border: none;
+  text-align: left;
+  padding: 8px;
+}
+#endContainer{
+    display: none;
+    flex-direction: column;
+}
+#endContainer button{
+
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    width: 15vw;
+    border-radius: 10px;
+
+    margin: 1vh 0;
+
+}
+.greenButton{
+    background-color: rgba(107, 123, 113, 0.9);
+    color: white;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+}
+.greenButton:hover{
+    background-color: white;
+    color: #6b7b71;
+    border: solid #fff 1px;
+}
+
+.whiteButton{
+    background-color: white;
+    color: #6b7b71;
+    border: solid #fff 1px;
+}
+
+.whiteButton:hover{
+    background-color: rgba(107, 123, 113, 0.9);
+    color: white;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+}
+
+#gameoverCard{
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: column;
+    background: rgba(107, 123, 113, 0.9);
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding: 5%;
+    align-content: initial;
+    border-radius: 6px;
+    max-width: 640px;
+}
+#gameoverCard h2{
+    font-size: 20px;
+    line-height: 30px;
+    margin: 0;
+    padding: 0;
+}
+#gameoverCard h1{
+    margin-top: 0;
+    margin-bottom: 5px;
+    padding: 0;
+}
 

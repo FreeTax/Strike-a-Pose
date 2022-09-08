@@ -27,8 +27,6 @@
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
     <!--Load Utils-->
     <script type="module" src="{% static 'utils.js' %}"></script>
-
-    <h1>Game</h1>
     <!--<img src="{% static 'assets/logo.png' %}">-->
     <div id="gameContainer" class="flex-container">
         <div class="game-card">
@@ -49,11 +47,45 @@
         </div>
     </div>
     <div id="endContainer" class="flex-container">
-        <video id="videoElement2" width="640" height="480" controls loop></video>
-        <a href="{% url 'start' %}">gioca ancora</a>
-        <div id="slideshow-container" class="flex-container"></div>
-        <table align="center" id="table" border="1">
-        </table>
+        <h1>Game Over</h1>
+        <div id="gameoverCard">
+            <div><h1>Game Over</h1></div>
+            <div><h2>Score: <span id="scoreEnd"></span></h2></div>
+            <div><h2>Time: <span id="timeEnd"></span></h2></div>
+            
+            
+        </div>
+        <button onclick="inforOpereClick()" class="greenButton">info opere</button>
+        <div>
+            <div id="slideshow-container" class="flex-container"></div>
+        </div>
+        <button onclick="videoClick()" class="greenButton">video</button>
+        <div><video id="videoElement2" width="640" height="480" controls loop></video></div>
+        <button onclick="scoreCLick()" class="greenButton">classifica</button>
+        <div>
+            <table align="center" id="table">
+            </table>
+        </div>
+        <a href="{% url 'start' %}"><button class="whiteButton"">gioca ancora </button></a>
+        <script>
+            /* end game function */
+            function inforOpereClick() {
+                document.getElementById('slideshow-container').style.display = "block";
+                document.getElementById('table').style.display = "none";
+                document.getElementById('videoElement2').style.display = "none";
+            }
+            function videoClick() {
+                document.getElementById('slideshow-container').style.display = "none";
+                document.getElementById('table').style.display = "none";
+                document.getElementById('videoElement2').style.display = "block";
+            }
+            function scoreCLick() {
+                document.getElementById('slideshow-container').style.display = "none";
+                document.getElementById('table').style.display = "block";
+                document.getElementById('videoElement2').style.display = "none";
+            }
+        </script>
+
 
 
     </div>
