@@ -106,7 +106,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       const computedDistance = distanceFromImg(videoKPs);
       const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.8) * 100).toFixed(0);
 
-      scoreLbl.innerHTML = computedDistancePercentage;
+      scoreLbl.value = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
       if (computedDistancePercentage >= 0.6 * 100) {
@@ -123,6 +123,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       }
       if (timeleft <= 0) {
         clearInterval(gameLoop);
+        stopvideo()
         const time = (30 * levelPictures.length) - timeleft
         sendscore(time, round) 
       }
