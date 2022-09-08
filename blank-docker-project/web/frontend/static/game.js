@@ -54,7 +54,7 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl
   imgCtx.scale(-1, 1);
 
   runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, timelbl, level);
-  //detect(detector,image,imageCanvas,imgCtx);
+
 }
 
 const createImage = (img, src) =>
@@ -68,7 +68,6 @@ const createImage = (img, src) =>
 export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, timelbl, levelId) => {
   scoreLbl;
   const level = await getLevel(levelId);
-  // console.log(level);
   let round = 0;
 
   async function sendscore(time, guessed) {
@@ -82,14 +81,12 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
     },)
   }
   const detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
-  const userVideoList = [];
+  //const userVideoList = [];
   const levelPictures = await getPicture(level[0].pk);
   var timeleft = 30 * levelPictures.length
-
+  
   const nextRound = async () => {
-    console.log(levelPictures);
     var picture = await levelPictures[round].fields.path;
-    //console.log(picture);
     timelbl.innerHTML = Math.trunc(timeleft) + " s";
     await createImage(img, picture);
     const poses = await detector.estimatePoses(img, { flipHorizontal: true });//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
@@ -97,7 +94,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
     const distanceFromImg = await createPoseDistanceFrom(imageKPs);
     //detect(detector, img, imgCanvas, imgCtx)
     await drawCanvas(imageKPs, img, imgCanvas, imgCtx);
-
+    document.getElementById("loading").style.display = "none";
     const gameLoop = setInterval(async () => {
       timelbl.innerHTML = Math.trunc(timeleft) + " s";
       const vidposes = await detector.estimatePoses(video, { flipHorizontal: true });//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
@@ -112,25 +109,22 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       scoreLbl.innerHTML = computedDistancePercentage;
       console.log(computedDistancePercentage);
 
-      if (computedDistancePercentage >= 0.2 * 100) {
+      if (computedDistancePercentage >= 0.6 * 100) {
         clearInterval(gameLoop)
         console.log("MATCH")
         round++;
         if (round < levelPictures.length && timeleft > 0) {
           await nextRound();
         } else {
-          alert("HAI")
           stopvideo()
           const time = (30 * levelPictures.length) - timeleft
-          sendscore(time, round) //inserisci al posto di 10 la variable col punteggio
+          sendscore(time, round) 
         }
       }
       if (timeleft <= 0) {
         clearInterval(gameLoop);
-        alert("HAI")
         const time = (30 * levelPictures.length) - timeleft
-        //const score = Math.trunc(timeleft / 90 + round / levelPictures.length * 100)
-        sendscore(time, round) //inserisci al posto di 10 la variable col punteggio
+        sendscore(time, round) 
       }
       timeleft -= 0.1;
     }, 100);
@@ -138,20 +132,6 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
   };
   return nextRound();
 }
-
-/*
-const detect = async (detector, media, canvasElement, ctx) => {
-    if (media != null) {
-        //const flipHorizontal = true;
-        const poses = await detector.estimatePoses(media, {flipHorizontal :true});//important: estimateSinglePose take on input only dom element. video is a reference to video tag inside dom tree
-
-        const mediaKPs = normalizeKPs(poses, media.width, media.height);
-
-        drawCanvas(mediaKPs, media, canvasElement, ctx);
-
-        //midle_point()
-    }
-}*/
 
 const normalizeKPs = async (poses, width, height) =>
   (poses?.[0]?.keypoints || [])
@@ -168,23 +148,6 @@ const drawCanvas = async (pose, video, canvas, ctx) => {
   drawSkeleton(pose, ctx, video);
 }
 
-function midle_point() {
-  var p = import('./json/bacco.json')
-  var json = p
-  var x = 0, y = 0, count = 0
-  json["keypoints"].forEach(element => {
-    if (element["score"] > 0, 3) {
-      x += element["position"]["x"]
-      y += element["position"]["y"]
-      count++
-    }
-
-  })
-  x = x / count
-  y = y / count
-  console.log(x)
-  console.log(y)
-}
 
 const parts = []
 var mediaRecorder;

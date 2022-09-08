@@ -37,14 +37,16 @@
         <label>Time:</label><label style="font-size:40px;" id="time"></label>
         <img id="paint" height="480" width="480" src="{% static 'assets/opere/img15.jpeg' %}">
         <canvas id="myCanvasp" width="480" height="480"></canvas>
-        
+        <div id="loading"> 
+            <img src="{% static 'assets/loading.gif' %}">
+            <h2>Caricamento...</h2></div>
     </div>
     <div id="endContainer" class="flex-container">
         <video id="videoElement2" width="640" height="480" controls loop></video>
         <div id="slideshow-container" class="flex-container"></div>
-        <table align = "center"
-            id="table" border="1">
+        <table align="center" id="table" border="1">
         </table>
+        
     </div>
 
     <script type="module">
@@ -60,7 +62,7 @@
 
         import { poseInit, runPosenet } from "{% static 'game.js' %}"
         var scoreLbl = document.getElementById('score');
-        const timelbl=document.getElementById('time');
+        const timelbl = document.getElementById('time');
         const paintElement = document.getElementById('paint');
         paintElement.src = "";
         const canvasElementp = document.getElementById('myCanvasp')
@@ -73,17 +75,14 @@
         const levelId = queryParams.get("id");
 
 
-        webcam.start()
+        await webcam.start()
             .then(result => {
-                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl,timelbl, levelId);
+                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl, timelbl, levelId);
             })
             .catch(err => {
                 console.log(err);
             });        
-    </script>
-
-    <script>
-        
+            
     </script>
     {%else%}
     <h1>Not logged in</h1>
