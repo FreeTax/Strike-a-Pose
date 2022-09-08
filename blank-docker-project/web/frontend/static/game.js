@@ -128,6 +128,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       if (timeleft <= 0) {
         clearInterval(gameLoop);
         alert("HAI")
+        stopvideo()
         const time = (30 * levelPictures.length) - timeleft
         //const score = Math.trunc(timeleft / 90 + round / levelPictures.length * 100)
         sendscore(time, round) //inserisci al posto di 10 la variable col punteggio
