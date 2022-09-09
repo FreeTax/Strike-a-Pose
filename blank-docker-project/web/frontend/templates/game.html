@@ -9,8 +9,8 @@
     {% load static%}
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body id="game">
@@ -31,26 +31,37 @@
     <!--Load Utils-->
     <script type="module" src="{% static 'utils.js' %}"></script>
     <!--<img src="{% static 'assets/logo.png' %}">-->
-    <div id="gameContainer" class="container">
-
-        <video autoplay="true" id="videoElement" ></video>
-        <canvas id="myCanvas" ></canvas>
-        <label>Score</label><progress value="0" max="100" id="score"></progress>
-        <label>Time:</label><label style="font-size:40px;" id="time"></label>
-        <img id="paint"  src="{% static 'assets/opere/img15.jpeg' %}">
-        <canvas id="myCanvasp" ></canvas>
+    <div id="gameContainer" class="flex-container">
+        <div id="scoreTime">
+            <label>Score</label><progress value="0" max="100" id="score"></progress>
+            <label>Time:</label><label id="time"></label>
+        </div>
+        <div class="wrapper">
+            <video autoplay="true" id="videoElement" class="overlapped"></video>
+            <canvas id="myCanvas" class="someContent"></canvas>
+        </div>
+        <div class="wrapper">
+            <img id="paint" src="{% static 'assets/opere/img15.jpeg' %}" class="overlapped">
+            <canvas id="myCanvasp" class="someContent"></canvas>
+        </div>
         <div id="loading">
-            <img src="{% static 'assets/loading.gif' %}">
+            <img src="{% static 'assets/loading.gif' %}" >
             <h2>Caricamento...</h2>
         </div>
     </div>
     <div id="endContainer" class="flex-container">
         <div id="gameoverCard">
-            <div><h1>Game Over</h1></div>
-            <div><h2>Score: <span id="scoreEnd"></span></h2></div>
-            <div><h2>Time: <span id="timeEnd"></span></h2></div>
-            
-            
+            <div>
+                <h1>Game Over</h1>
+            </div>
+            <div>
+                <h2>Score: <span id="scoreEnd"></span></h2>
+            </div>
+            <div>
+                <h2>Time: <span id="timeEnd"></span></h2>
+            </div>
+
+
         </div>
         <button onclick="inforOpereClick()" class="greenButton">info opere</button>
         <div>
@@ -73,21 +84,18 @@
         <script>
             /* end game function */
             function inforOpereClick() {
-                document.getElementById('slideshow-container').style.display = "block";
+                document.getElementById('slideshow-container').style.display = " block";
                 document.getElementById('table').style.display = "none";
                 document.getElementById('videoElement2').style.display = "none";
-            }
-            function videoClick() {
+            } function videoClick() {
                 document.getElementById('slideshow-container').style.display = "none";
                 document.getElementById('table').style.display = "none";
                 document.getElementById('videoElement2').style.display = "block";
-            }
-            function scoreCLick() {
+            } function scoreCLick() {
                 document.getElementById('slideshow-container').style.display = "none";
                 document.getElementById('table').style.display = "block";
                 document.getElementById('videoElement2').style.display = "none";
-            }
-        </script>
+            } </script>
     </div>
 
     <script type="module">
