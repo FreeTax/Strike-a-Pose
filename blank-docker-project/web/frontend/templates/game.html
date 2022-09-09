@@ -33,19 +33,26 @@
     <!--<img src="{% static 'assets/logo.png' %}">-->
     <div id="gameContainer" class="flex-container">
         <div id="scoreTime">
-            <label>Score</label><progress value="0" max="100" id="score"></progress>
-            <label>Time:</label><label id="time"></label>
+            <div id="scoreDiv">
+                <label>Score</label><progress value="0" max="100" id="score"></progress>
+            </div>
+            <div >
+                <label>Time:</label><label id="time"></label>
+            </div>
         </div>
-        <div class="wrapper">
-            <video autoplay="true" id="videoElement" class="overlapped"></video>
-            <canvas id="myCanvas" class="someContent"></canvas>
+        <div id="contanerWebcamGame">
+            <div class="wrapper">
+                <video autoplay="true" id="videoElement" class="overlapped"></video>
+                <canvas id="myCanvas" class="someContent"></canvas>
+            </div>
+            <div class="wrapper">
+                <img id="paint" src="{% static 'assets/opere/img15.jpeg' %}" class="overlapped">
+                <canvas id="myCanvasp" class="someContent"></canvas>
+            </div>
         </div>
-        <div class="wrapper">
-            <img id="paint" src="{% static 'assets/opere/img15.jpeg' %}" class="overlapped">
-            <canvas id="myCanvasp" class="someContent"></canvas>
-        </div>
+
         <div id="loading">
-            <img src="{% static 'assets/loading.gif' %}" >
+            <img src="{% static 'assets/loading.gif' %}">
             <h2>Caricamento...</h2>
         </div>
     </div>

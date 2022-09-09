@@ -249,7 +249,7 @@ async function showImageInfos(id){
 }
 
 async function getdata() {
-  var response = await axios.get('http://localhost:8000/frontend/getscore');
+  var response = await axios.get('/frontend/getscore');
   printTable(response.data);
   const params = new URLSearchParams(window.location.search)
   const levelId = params.get('id');
