@@ -1,11 +1,12 @@
 body{
     display: flex;
     flex-direction: column;
-    align-items: center;
+  align-items: center;
+  justify-content: center;
     padding: 0px;
     margin: 0px;
     width: 100%;
-    height: 100vh;
+    height: 100;
     background-image: url("assets/sfondo_end.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -228,6 +229,10 @@ body{
     flex-flow: row wrap;
 }
 
+.mySlides .text{
+    background-color: rgba(33, 33, 33, 0.9);
+    ;
+}
 #prev,
 #next {
     z-index: 10;
@@ -263,8 +268,7 @@ body{
     font-size: 15px;
     padding: 8px 12px;
     position: absolute;
-    bottom: 8px;
-    width: 100%;
+    bottom: 4px;
     text-align: center;
 }
 

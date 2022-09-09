@@ -65,14 +65,5 @@ class Score(models.Model):
     id=models.AutoField(primary_key=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     guessed=models.IntegerField(null=False)
-    time=models.TimeField(null=False)
+    time=models.CharField(max_length=255, null=False)
     date=models.DateTimeField(auto_now_add=True, null=True)
-"""
-def insert_default_data():
-    new_level = Level(
-        name="Mezzo busto",
-        description="Imita la posa di una serie di opere d'arte. Troverai solo opere a mezzo busto.",
-    )
-    models.session.add(new_level)
-    models.session.commit()
-"""
