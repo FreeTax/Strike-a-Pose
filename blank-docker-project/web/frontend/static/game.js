@@ -76,7 +76,6 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
 
   async function sendscore(time, guessed) {
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
-    console.log(time);
     const response = await axios.get('/frontend/setscore', {
       params: {
         "user_id": user_id,
@@ -109,11 +108,11 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       //const filteredVideoKPs = videoKPs.filter((kp) => imageKPNames.includes(kp.name));
 
       const computedDistance = distanceFromImg(videoKPs);
-      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.7) * 100).toFixed(0);
+      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.8) * 100).toFixed(0);
 
       scoreLbl.value = computedDistancePercentage;
 
-      if (computedDistancePercentage >= 0.7 * 100) {
+      if (computedDistancePercentage >= 0.8 * 100) {
         clearInterval(gameLoop)
         round++;
         if (round < levelPictures.length && timeleft > 0) {

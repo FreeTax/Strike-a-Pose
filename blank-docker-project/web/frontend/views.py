@@ -51,7 +51,7 @@ def getUserMe():
 
 def setScore(request):
     user_id = request.GET.get("user_id")
-    p_time=request.GET.get("time")
+    p_time=float(request.GET.get("time"))
     guessed=request.GET.get("guessed")
     score= Score(user_id=user_id, time=p_time,guessed=guessed)
     score.save()
