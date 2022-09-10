@@ -37,11 +37,58 @@ body{
     align-items: center;
 }
 
+#videoElement2{
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    border-radius: 10px;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+}
+#table{
+    background-color: rgba(107, 123, 113, 0.9);
+    color: white;
+    border-radius: 10px;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+    margin: 1vh 0;
+    width: 100%;
+    
+}
+#table td, #table th {
+  border: none;
+  text-align: left;
+  padding: 8px;
+}
+
 @media screen and (max-width: 648px){
     #scoreTime{
         padding: 0px;
         margin: 0px;
         height: 20px;
+    }
+    .greenButton{
+        display: block;
+    }
+    #table{
+        display: none;
+    }
+    #videoElement2{
+        display: none;
+    }
+
+}
+
+@media screen and (min-width: 648px){
+    .greenButton{
+        display: none;
+    }
+    #videoElement2{
+        display: block;
+    }
+    #table{
+        display: block;
+    }
+    #endContainer div{
+        margin-bottom: 20px;
     }
 }
 
@@ -217,6 +264,7 @@ body{
 #slideshow-container {
     position: relative;
     margin: auto;
+    
 }
 
 /* Next & previous buttons */
@@ -327,27 +375,7 @@ body{
     color: #fff;
 }
 
-#videoElement2{
-    display: none;
-    width: 100%;
-    height: auto;
-    max-width: 600px;
-}
-#table{
-    display: none;
-    background-color: rgba(107, 123, 113, 0.9);
-    color: white;
-    border-radius: 10px;
-    border: solid rgba(107, 123, 113, 0.9) 1px;
-    margin: 1vh 0;
-    width: 100%;
-    
-}
-#table td, #table th {
-  border: none;
-  text-align: left;
-  padding: 8px;
-}
+
 
 #endContainer{
     display: none;
@@ -360,7 +388,7 @@ body{
     padding-bottom: 1vh;
     border-radius: 10px;
     margin: 1vh 0;
-    width: 150px;
+    width: 100%
 
 
 }

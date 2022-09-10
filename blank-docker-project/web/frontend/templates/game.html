@@ -70,6 +70,7 @@
 
 
         </div>
+        <a href="{% url 'start' %}"><button class="whiteButton"">gioca ancora </button></a>
         <button onclick="inforOpereClick()" class="greenButton">info opere</button>
         <div>
             <div id="slideshow-container" class="flex-container"></div>
@@ -78,16 +79,15 @@
         <div><video id="videoElement2" width="640" height="480" controls loop></video></div>
         <button onclick="scoreCLick()" class="greenButton">classifica</button>
         <div id="tableDiv">
-            <table id="table" style="overflow-x:auto;">
+            <table id="table">
                 <tr>
                     <th>Tempo</th>
                     <th>Pose</th>
                     <th>Data</th>
-                    <th>Utente</th>
                 </tr>
             </table>
         </div>
-        <a href="{% url 'start' %}"><button class="whiteButton"">gioca ancora </button></a>
+        
         <script>
             /* end game function */
             function inforOpereClick() {
