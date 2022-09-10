@@ -57,18 +57,9 @@ def setScore(request):
     score.save()
     return JsonResponse({"status": "ok"})
 
-def getScoreByUser(request):
-    cursor=connection.cursor()
-    user_id=request.GET.get("user_id")
-    cursor.execute("SELECT frontend_score.time,frontend_score.guessed, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id WHERE auth_user.id="+user_id+" ORDER BY time ASC,guessed DESC")
-    #cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id WHERE auth_user.id="+user_id+" ORDER BY points DESC")
-    row = cursor.fetchall()
-    return JsonResponse(row, safe=False)
-
 def getScore(request):
     cursor = connection.cursor()
-    cursor.execute("SELECT frontend_score.time,frontend_score.guessed,frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id ORDER BY time ASC, guessed DESC LIMIT 10")
-    #cursor.execute("SELECT frontend_score.points, frontend_score.date, auth_user.username, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id ORDER BY points DESC")
+    cursor.execute("SELECT frontend_score.time,frontend_score.guessed,frontend_score.date, auth_user.id FROM frontend_score INNER JOIN auth_user ON frontend_score.user_id=auth_user.id ORDER BY time ASC, guessed DESC LIMIT 10")
     row = cursor.fetchall()
     return JsonResponse(row, safe=False)
 

@@ -112,7 +112,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
 
       scoreLbl.value = computedDistancePercentage;
 
-      if (computedDistancePercentage >= 0.8 * 100) {
+      if (computedDistancePercentage >= 0.4 * 100) {
         clearInterval(gameLoop)
         round++;
         if (round < levelPictures.length && timeleft > 0) {
@@ -202,7 +202,6 @@ function printTable(data) {
                                 <td>${data[i][0]}</td>
                                 <td>${data[i][1]}</td>
                                 <td>${data[i][2]}</td>
-                                <td>${data[i][3]}</td>
                             </tr>`;
     table.innerHTML += row;
   }

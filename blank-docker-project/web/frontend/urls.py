@@ -21,7 +21,6 @@ from . import views
 urlpatterns = [
     path('getimg', views.getImage),
     path('setscore', views.setScore),
-    path('getscorebyuser', views.getScoreByUser),
     path('getscore', views.getScore),
     path('getlvl', views.getLevel),
     path('getlvls', views.getLevels),
