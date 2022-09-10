@@ -11,7 +11,6 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Logged in successfully')
             return redirect('start')
         else:
             messages.success(request, ('Error wrong username/password'))
@@ -21,7 +20,6 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request, 'Logged out successfully')
     return redirect('login')
 
 def gologic(request):

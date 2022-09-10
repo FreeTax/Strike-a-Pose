@@ -27,15 +27,12 @@
             <input type="password" name="password" placeholder="Password">
             <button type="submit" name="submit">Login </button>
         </form>
+        <a href="{% url 'register' %}" >Sign up?</a>
         {%if messages%}
         {% for message in messages %}
-        {% if message.tags == 'ERROR' %}
-        <h2> username\password errati </h2>
-
-        {% endif %}
+        <h2> Nome utente o password errati</h2>
         {% endfor %}
     {%endif%}
-        <a href="{% url 'register' %}" >Sign up?</a>
     </div>
 
     {%endif%}
