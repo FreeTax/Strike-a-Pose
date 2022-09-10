@@ -79,7 +79,7 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
     const response = await axios.get('/frontend/setscore', {
       params: {
         "user_id": user_id,
-        "time": time,
+        "time": time.toFixed(3),
         "guessed": guessed
       }
     },)
@@ -118,8 +118,8 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
         if (round < levelPictures.length && timeleft > 0) {
           await nextRound();
         } else {
-          stopvideo()
           const time = (30 * levelPictures.length) - timeleft
+          stopvideo()
           await sendscore(time, round)
           getdata(); 
           setEnd(round, time)
@@ -127,11 +127,11 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       }
       if (timeleft <= 0) {
         clearInterval(gameLoop);
-        stopvideo()
-        const time = (30 * levelPictures.length) - timeleft
-        await sendscore(time, round)
+        stopvideo();
+        const time = (30 * levelPictures.length);
+        await sendscore(time, round);
         getdata();
-        setEnd(round, time) 
+        setEnd(round, time);
       }
       timeleft -= 0.1;
     }, 100);

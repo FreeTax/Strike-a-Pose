@@ -65,7 +65,7 @@ class Score(models.Model):
     id=models.AutoField(primary_key=True)
     user=models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     guessed=models.IntegerField(null=False)
-    time=models.TimeField(null=False)
+    time=models.FloatField()
     date=models.DateTimeField(auto_now_add=True, null=True)
 """
 def insert_default_data():
