@@ -16,6 +16,8 @@ body{
   /*  background-position: center center;*/
   font-family: 'Roboto', sans-serif;
 
+}html{
+    height:100vh;
 }
 #contanerWebcamGame{
     display: flex;
@@ -175,7 +177,21 @@ body{
     align-items: center;
     
 }
-.card,.game-card{
+.card{
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: column;
+    background: rgba(107, 123, 113, 0.9);
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding: 2vh;
+    margin: 2% 5%;
+    align-content: initial;
+    border-radius: 6px;
+    max-width: 680px;
+}
+.game-card{
     display: flex;
     flex-flow: wrap;
     flex-direction: column;
@@ -215,9 +231,9 @@ body{
     width: 80%;
     height: 60px;
     display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     max-width: 90%;
     opacity: 100%;
 }
@@ -393,8 +409,6 @@ body{
     border-radius: 10px;
     margin: 1vh 0;
     width: 100%
-
-
 }
 .greenButton{
     background-color: rgba(107, 123, 113, 0.9);
