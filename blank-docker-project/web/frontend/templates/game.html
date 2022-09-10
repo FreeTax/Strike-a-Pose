@@ -70,7 +70,7 @@
 
 
         </div>
-        <a href="{% url 'start' %}"><button class="whiteButton"">gioca ancora </button></a>
+        <a href="{% url 'start' %}"><button class="whiteButton">gioca ancora </button></a>
         <button onclick="inforOpereClick()" class="greenButton">info opere</button>
         <div>
             <div id="slideshow-container" class="flex-container"></div>
@@ -125,12 +125,14 @@
         const webcamElement = document.getElementById('videoElement');
         const canvasElement = document.getElementById('myCanvas');
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
+        console.log(window.location.search);
         const queryParams = new URLSearchParams(window.location.search);
         const levelId = queryParams.get("id");
+        const difficulty = parseFloat(queryParams.get("diff"));
 
         await webcam.start()
             .then(result => {
-                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl, timelbl, levelId);
+                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl, timelbl, levelId,difficulty);
             })
             .catch(err => {
                 console.log(err);

@@ -22,13 +22,15 @@
 
         <a id="logoutBtn" class="btn btn-default btn-sm" href="{% url 'logout' %}">log out</a>
     </div>
+    <input type="range" min="7" max="9" value="8" id="difficulty">
     <div id="level-list" class="flex-container"></div>
     <script type="module">
         import { getLevels, getPicture } from "{% static 'fetchUtils.js' %}";
-
+        var difficulty = document.getElementById("difficulty");
         const levelList = await getLevels();
         const levelListEl = document.getElementById("level-list");
-        
+        const buttons = document.getElementsByClassName("btn");
+
         for (var i = 0; i < levelList.length; i++) {
             const images = await getPicture(levelList[i].pk);
 
@@ -42,6 +44,15 @@
                 <a class="btn btn-primary btn-block" href="../game?id=${levelList[i].pk}">GIOCA</a>
         </div>`;
         };
+
+        difficulty.oninput = function () {
+            for (var i = 1; i < buttons.length; i++) {
+                const queryParams = new URLSearchParams((buttons[i].href.split('game')[1]));
+                console.log(queryParams.get("id"))
+                var levelId = queryParams.get("id");
+                buttons[i].href ="../game?id="+levelId+"&diff=" + difficulty.value;
+            }
+        }
 
     </script>
 </body>

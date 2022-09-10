@@ -39,7 +39,7 @@ const createPoseDistanceFrom = async (keypointsA = []) => {
   };
 };
 
-export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl, level) => {
+export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl, level,difficulty) => {
   const video = vid;
   const image = img;
   const videoCanvas = vidCanvas;
@@ -48,6 +48,7 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl
   vidCanvas.height=video.height;
   imageCanvas.width=image.width;
   imageCanvas.height=image.width;
+  difficulty/=10;
 
   const vidCtx = videoCanvas.getContext("2d");
   vidCtx.translate(vidCanvas.width, 0);
@@ -57,7 +58,7 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl
   imgCtx.translate(imageCanvas.width, 0);
   imgCtx.scale(-1, 1);
 
-  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, timelbl, level);
+  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, timelbl, level,difficulty);
 
 }
 
@@ -69,10 +70,11 @@ const createImage = (img, src) =>
     img.src = "../../" + src;
   });
 
-export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, timelbl, levelId) => {
+export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, timelbl, levelId,difficulty) => {
   scoreLbl;
   const level = await getLevel(levelId);
   let round = 0;
+  console.log(difficulty);
 
   async function sendscore(time, guessed) {
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
@@ -108,11 +110,11 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       //const filteredVideoKPs = videoKPs.filter((kp) => imageKPNames.includes(kp.name));
 
       const computedDistance = distanceFromImg(videoKPs);
-      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.8) * 100).toFixed(0);
+      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / difficulty) * 100).toFixed(0);
 
       scoreLbl.value = computedDistancePercentage;
 
-      if (computedDistancePercentage >= 0.4 * 100) {
+      if (computedDistancePercentage >= difficulty * 100) {
         clearInterval(gameLoop)
         round++;
         if (round < levelPictures.length && timeleft > 0) {
