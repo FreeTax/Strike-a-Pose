@@ -13,7 +13,7 @@ def login_user(request):
             login(request, user)
             return redirect('start')
         else:
-            messages.success(request, ('Error wrong username/password'))
+            messages.success(request, ('nome utente o password errati'))
             return redirect('login', )
     else:
         return render(request, 'registration/login.html')
@@ -31,7 +31,7 @@ def register_user(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'Account created for ' + username)
+            messages.success(request, 'Account creato per ' + username)
             return redirect('login')
     else:
         form = UserCreationForm()
