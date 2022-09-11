@@ -30,11 +30,6 @@ services:
       - DB_HOST=db
       - DB_DATABASE=blank
       - DB_ROOT_PASSWORD=root
-    healthcheck:
-        test: ["http://localhost:8000"]
-        interval: 30s
-        timeout: 15s
-        retries: 5
   
   adminer:
     image: adminer

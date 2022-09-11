@@ -22,4 +22,6 @@ Strumenti di progettazione: Mockflow [Progettazione - Da concordare prima dello 
 
 Esame: relazione elaborato, presentazione PPT, software in dropbox
 
+Informazioni: Le informazioni sulle opere (percorso,descrizione,livello di gioco) e sui livelli sono inizializzate nel file web/frontend/fixtures/default_data.json, per aggiungere elementi al database è sufficiente inserire il nuovo elemento nel file json e riavviare il container docker che eseguirà il comando"python manage.py loaddata default_data.json", oltre che ai comandi "python manage.py makemigrations" e "python manage.py migrate", specificati in docker-compose.yaml.
+
 
