@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body id="game">
@@ -37,7 +38,7 @@
                 <label>Score</label><progress value="0" max="100" id="score"></progress>
             </div>
             <div >
-                <label>Time:</label><label id="time"></label>
+                <label>Tempo:</label><label id="time"></label>
             </div>
         </div>
         <div id="contanerWebcamGame">
@@ -70,38 +71,38 @@
 
 
         </div>
+        <a href="{% url 'start' %}"><button class="whiteButton">gioca ancora </button></a>
         <button onclick="inforOpereClick()" class="greenButton">info opere</button>
         <div>
             <div id="slideshow-container" class="flex-container"></div>
         </div>
         <button onclick="videoClick()" class="greenButton">video</button>
-        <div><video id="videoElement2" width="640" height="480" controls loop></video></div>
+        <div id="videoEndDiv"><video id="videoElement2" width="640" height="480" controls loop></video><a id="downloadVideo"><button class="whiteButton"><i class="fa fa-download"></i>  Scrica video </button></a></div>
         <button onclick="scoreCLick()" class="greenButton">classifica</button>
         <div id="tableDiv">
-            <table id="table" style="overflow-x:auto;">
+            <table id="table">
                 <tr>
                     <th>Tempo</th>
                     <th>Pose</th>
                     <th>Data</th>
-                    <th>Utente</th>
                 </tr>
             </table>
         </div>
-        <a href="{% url 'start' %}"><button class="whiteButton"">gioca ancora </button></a>
+        
         <script>
             /* end game function */
             function inforOpereClick() {
                 document.getElementById('slideshow-container').style.display = " block";
                 document.getElementById('table').style.display = "none";
-                document.getElementById('videoElement2').style.display = "none";
+                document.getElementById('videoEndDiv').style.display = "none";
             } function videoClick() {
                 document.getElementById('slideshow-container').style.display = "none";
                 document.getElementById('table').style.display = "none";
-                document.getElementById('videoElement2').style.display = "block";
+                document.getElementById('videoEndDiv').style.display = "block";
             } function scoreCLick() {
                 document.getElementById('slideshow-container').style.display = "none";
                 document.getElementById('table').style.display = "block";
-                document.getElementById('videoElement2').style.display = "none";
+                document.getElementById('videoEndDiv').style.display = "none";
             } </script>
     </div>
 
@@ -125,12 +126,14 @@
         const webcamElement = document.getElementById('videoElement');
         const canvasElement = document.getElementById('myCanvas');
         const webcam = new Webcam(webcamElement, 'user', canvasElement);
+        console.log(window.location.search);
         const queryParams = new URLSearchParams(window.location.search);
         const levelId = queryParams.get("id");
+        const difficulty = parseFloat(queryParams.get("diff"));
 
         await webcam.start()
             .then(result => {
-                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl, timelbl, levelId);
+                poseInit(webcamElement, paintElement, canvasElement, canvasElementp, scoreLbl, timelbl, levelId,difficulty);
             })
             .catch(err => {
                 console.log(err);

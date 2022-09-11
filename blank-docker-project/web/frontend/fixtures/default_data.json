@@ -11,15 +11,6 @@
         "model": "frontend.picture",
         "pk": 1,
         "fields": {
-            "path": "static/assets/opere/img15.jpeg",
-            "level": "1",
-            "description":"San Giovanni Battista è un dipinto a olio su tavola di noce (69x57 cm) di Leonardo da Vinci, databile al 1508-1513 e conservato nel Museo del Louvre a Parigi."
-        }
-    },
-    {
-        "model": "frontend.picture",
-        "pk": 2,
-        "fields": {
             "path": "static/assets/opere/img16.jpeg",
             "level": "1",
             "description":"La Dama con l'ermellino è un dipinto a olio su tavola (54 ×40 cm) di Leonardo da Vinci, databile al 1488-1490. La donna ritratta va quasi sicuramente identificata con Cecilia Gallerani."
@@ -27,11 +18,20 @@
     },
     {
         "model": "frontend.picture",
-        "pk": 3,
+        "pk": 2,
         "fields": {
             "path": "static/assets/opere/img18.jpeg",
             "level": "1",
             "description":"Bacco è un dipinto realizzato tra il 1596 ed il 1598 dal pittore italiano Caravaggio, conservato nella Galleria degli Uffizi di Firenze."
+        }
+    },
+    {
+        "model": "frontend.picture",
+        "pk": 3,
+        "fields": {
+            "path": "static/assets/opere/img15.jpeg",
+            "level": "1",
+            "description":"San Giovanni Battista è un dipinto a olio su tavola di noce (69x57 cm) di Leonardo da Vinci, databile al 1508-1513 e conservato nel Museo del Louvre a Parigi."
         }
     },
     {
@@ -108,9 +108,9 @@
         "model": "frontend.picture",
         "pk":10,
         "fields": {
-            "path": "static/assets/opere/img15.jpeg",
+            "path": "static/assets/opere/img16.jpeg",
             "level": "3",
-            "description":"San Giovanni Battista è un dipinto a olio su tavola di noce (69x57 cm) di Leonardo da Vinci, databile al 1508-1513 e conservato nel Museo del Louvre a Parigi."
+            "description":"La Dama con l'ermellino è un dipinto a olio su tavola (54 ×40 cm) di Leonardo da Vinci, databile al 1488-1490. La donna ritratta va quasi sicuramente identificata con Cecilia Gallerani."
         }
     },
     {
@@ -126,9 +126,9 @@
         "model": "frontend.picture",
         "pk":12,
         "fields": {
-            "path": "static/assets/opere/img16.jpeg",
+            "path": "static/assets/opere/img15.jpeg",
             "level": "3",
-            "description":"La Dama con l'ermellino è un dipinto a olio su tavola (54 ×40 cm) di Leonardo da Vinci, databile al 1488-1490. La donna ritratta va quasi sicuramente identificata con Cecilia Gallerani."
+            "description":"San Giovanni Battista è un dipinto a olio su tavola di noce (69x57 cm) di Leonardo da Vinci, databile al 1508-1513 e conservato nel Museo del Louvre a Parigi."
         }
     },
     {

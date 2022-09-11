@@ -11,17 +11,15 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Logged in successfully')
             return redirect('start')
         else:
-            messages.success(request, ('Error wrong username/password'))
+            messages.success(request, ('nome utente o password errati'))
             return redirect('login', )
     else:
         return render(request, 'registration/login.html')
 
 def logout_user(request):
     logout(request)
-    messages.success(request, 'Logged out successfully')
     return redirect('login')
 
 def gologic(request):
@@ -33,7 +31,7 @@ def register_user(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, 'Account created for ' + username)
+            messages.success(request, 'Account creato per ' + username)
             return redirect('login')
     else:
         form = UserCreationForm()

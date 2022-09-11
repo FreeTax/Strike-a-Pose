@@ -1,8 +1,8 @@
 body{
     display: flex;
     flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
     padding: 0px;
     margin: 0px;
     width: 100%;
@@ -16,6 +16,9 @@ body{
   /*  background-position: center center;*/
   font-family: 'Roboto', sans-serif;
 
+}html{
+    height: auto;
+    min-height:100vh;
 }
 #contanerWebcamGame{
     display: flex;
@@ -36,6 +39,46 @@ body{
     margin-bottom: 20px;
     padding-top: 10px;
     align-items: center;
+    color: white;
+    font-weight: bold;
+}
+
+#score{
+    margin-left: 5px;
+}
+
+#videoElement2{
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    border-radius: 10px;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+}
+#table{
+    background-color: rgba(107, 123, 113, 0.9);
+    color: white;
+    border-radius: 10px;
+    border: solid rgba(107, 123, 113, 0.9) 1px;
+    margin: 1vh 0;
+    width: 100%;
+    
+}
+#table td, #table th {
+  border: none;
+  text-align: left;
+  padding: 8px;
+}
+
+@media screen and (min-width: 1480px){
+    .wrapper{
+        margin: 5vw 1vw;
+    }
+}
+
+@media screen and (min-height: 730px) and (max-width:648px){
+    .wrapper{
+        margin: 3vw 0;
+    }
 }
 
 @media screen and (max-width: 648px){
@@ -43,6 +86,30 @@ body{
         padding: 0px;
         margin: 0px;
         height: 20px;
+    }
+    .greenButton{
+        display: block;
+    }
+    #table{
+        display: none;
+    }
+    #videoEndDiv{
+        display: none;
+    }
+}
+
+@media screen and (min-width: 648px){
+    .greenButton{
+        display: none;
+    }
+    #videoEndDiv{
+        display: block;
+    }
+    #table{
+        display: block;
+    }
+    #endContainer div{
+        margin-bottom: 20px;
     }
 }
 
@@ -128,7 +195,21 @@ body{
     align-items: center;
     
 }
-.card,.game-card{
+.card{
+    display: flex;
+    flex-flow: wrap;
+    flex-direction: column;
+    background: rgba(107, 123, 113, 0.9);
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding: 2vh;
+    margin: 2% 5%;
+    align-content: initial;
+    border-radius: 6px;
+    max-width: 680px;
+}
+.game-card{
     display: flex;
     flex-flow: wrap;
     flex-direction: column;
@@ -150,6 +231,7 @@ body{
 
 #game{
     background-color: #3e413f;
+    background-image: none;
 }
 
 .card h2{
@@ -168,9 +250,9 @@ body{
     width: 80%;
     height: 60px;
     display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
     max-width: 90%;
     opacity: 100%;
 }
@@ -215,9 +297,47 @@ body{
 
 }
 
+
+#slider-container{
+    display: flex;
+    flex-direction: row;
+    background: rgba(107, 123, 113, 0.9);
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    padding: 5%;
+    margin: 2% 5%;
+    align-content: initial;
+    border-radius: 6px;
+    max-width: 680px;
+    justify-content: space-around;
+}
+
+#difficulty{
+    margin-top: 5px;
+    width: 100%;
+    background: linear-gradient(to right, #ac831b 0%, #ac831b 50%, #f5f5f5 50%, #f5f5f5 100%);
+    border-radius: 8px;
+    height: 7px;
+    outline: none;
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+  }
+
+  #difficulty::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 17px;
+    height: 17px;
+    background: #ac831b;
+    cursor: pointer;
+    border-radius: 17px;
+  }
+
 #slideshow-container {
     position: relative;
     margin: auto;
+    
 }
 
 /* Next & previous buttons */
@@ -231,8 +351,8 @@ body{
 
 .mySlides .text{
     background-color: rgba(33, 33, 33, 0.9);
-    ;
 }
+
 #prev,
 #next {
     z-index: 10;
@@ -310,6 +430,7 @@ body{
         padding-left:10px;
         padding-right:10px;
     }
+
 }
 
 
@@ -331,27 +452,7 @@ body{
     color: #fff;
 }
 
-#videoElement2{
-    display: none;
-    width: 100%;
-    height: auto;
-    max-width: 600px;
-}
-#table{
-    display: none;
-    background-color: rgba(107, 123, 113, 0.9);
-    color: white;
-    border-radius: 10px;
-    border: solid rgba(107, 123, 113, 0.9) 1px;
-    margin: 1vh 0;
-    width: 100%;
-    
-}
-#table td, #table th {
-  border: none;
-  text-align: left;
-  padding: 8px;
-}
+
 
 #endContainer{
     display: none;
@@ -364,9 +465,7 @@ body{
     padding-bottom: 1vh;
     border-radius: 10px;
     margin: 1vh 0;
-    width: 150px;
-
-
+    width: 100%
 }
 .greenButton{
     background-color: rgba(107, 123, 113, 0.9);

@@ -22,13 +22,21 @@
 
         <a id="logoutBtn" class="btn btn-default btn-sm" href="{% url 'logout' %}">log out</a>
     </div>
-    <div id="level-list" class="flex-container"></div>
+    <div id="start-container" class="flex-container">
+        <div id="slider-container">
+            <label>Facile</label>
+            <input type="range" min="0.75" max="0.85" value="0.8" id="difficulty" step=".05">
+            <label>Difficile</label>
+        </div>
+        <div id="level-list" class="flex-container"></div>
+    </div>
     <script type="module">
         import { getLevels, getPicture } from "{% static 'fetchUtils.js' %}";
-
+        var difficulty = document.getElementById("difficulty");
         const levelList = await getLevels();
         const levelListEl = document.getElementById("level-list");
-        
+        const buttons = document.getElementsByClassName("btn");
+
         for (var i = 0; i < levelList.length; i++) {
             const images = await getPicture(levelList[i].pk);
 
@@ -39,9 +47,19 @@
                 <p class="card-text">
                 ${levelList[i].fields.description}
                 </p>
-                <a class="btn btn-primary btn-block" href="../game?id=${levelList[i].pk}">GIOCA</a>
+                <a class="btn btn-primary btn-block" href="../game?id=${levelList[i].pk}&diff=${difficulty.value}">GIOCA</a>
         </div>`;
         };
+
+        difficulty.oninput = function () {
+            for (var i = 1; i < buttons.length; i++) {
+                const queryParams = new URLSearchParams((buttons[i].href.split('game')[1]));
+                var levelId = queryParams.get("id");
+                buttons[i].href = "../game?id=" + levelId + "&diff=" + difficulty.value;
+            }
+            var value = (this.value - this.min) / (this.max - this.min) * 100
+            this.style.background = 'linear-gradient(to right, #ac831b 0%, #ac831b ' + value + '%, #f5f5f5 ' + value + '%, #f5f5f5 100%)'
+        }
 
     </script>
 </body>

@@ -39,7 +39,7 @@ const createPoseDistanceFrom = async (keypointsA = []) => {
   };
 };
 
-export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl, level) => {
+export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl, level,difficulty) => {
   const video = vid;
   const image = img;
   const videoCanvas = vidCanvas;
@@ -57,7 +57,7 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl
   imgCtx.translate(imageCanvas.width, 0);
   imgCtx.scale(-1, 1);
 
-  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, timelbl, level);
+  runPosenet(video, image, videoCanvas, imageCanvas, vidCtx, imgCtx, scoreLbl, timelbl, level,difficulty);
 
 }
 
@@ -69,7 +69,7 @@ const createImage = (img, src) =>
     img.src = "../../" + src;
   });
 
-export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, timelbl, levelId) => {
+export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, scoreLbl, timelbl, levelId,difficulty) => {
   scoreLbl;
   const level = await getLevel(levelId);
   let round = 0;
@@ -108,18 +108,18 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       //const filteredVideoKPs = videoKPs.filter((kp) => imageKPNames.includes(kp.name));
 
       const computedDistance = distanceFromImg(videoKPs);
-      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / 0.8) * 100).toFixed(0);
+      const computedDistancePercentage = Math.min(99, ((1 - computedDistance) / difficulty) * 100).toFixed(0);
 
       scoreLbl.value = computedDistancePercentage;
 
-      if (computedDistancePercentage >= 0.8 * 100) {
+      if (computedDistancePercentage >= difficulty * 100) {
         clearInterval(gameLoop)
         round++;
         if (round < levelPictures.length && timeleft > 0) {
           await nextRound();
         } else {
-          const time = (30 * levelPictures.length) - timeleft;
-          stopvideo();
+          const time = (30 * levelPictures.length) - timeleft
+          stopvideo()
           await sendscore(time, round)
           getdata(); 
           setEnd(round, time)
@@ -128,10 +128,11 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
       if (timeleft <= 0) {
         stopvideo();
         clearInterval(gameLoop);
-        const time = (30 * levelPictures.length)
-        await sendscore(time, round)
+        stopvideo();
+        const time = (30 * levelPictures.length);
+        await sendscore(time, round);
         getdata();
-        setEnd(round, time) 
+        setEnd(round, time);
       }
       timeleft -= 0.1;
     }, 100);
@@ -184,6 +185,9 @@ function stopvideo() {
   video2.play()
   start.style.display = "none"
   end.style.display = "flex"
+  document.getElementById("game").style.backgroundImage="url(../static/assets/sfondo_start.png)"
+  document.getElementById("downloadVideo").href = videoURL
+  document.getElementById("downloadVideo").download = "video.mp4";
 
 }
 function setEnd(score, time){
@@ -202,7 +206,6 @@ function printTable(data) {
                                 <td>${data[i][0]}</td>
                                 <td>${data[i][1]}</td>
                                 <td>${data[i][2]}</td>
-                                <td>${data[i][3]}</td>
                             </tr>`;
     table.innerHTML += row;
   }
