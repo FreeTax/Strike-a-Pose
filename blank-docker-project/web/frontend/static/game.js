@@ -73,7 +73,6 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
   scoreLbl;
   const level = await getLevel(levelId);
   let round = 0;
-  console.log(difficulty);
 
   async function sendscore(time, guessed) {
     const user_id = JSON.parse(document.getElementById('user_id').textContent);
@@ -185,6 +184,7 @@ function stopvideo() {
   video2.play()
   start.style.display = "none"
   end.style.display = "flex"
+  document.getElementById("game").style.backgroundImage="url(../static/assets/sfondo_start.png)"
 
 }
 function setEnd(score, time){

@@ -54,7 +54,6 @@
         difficulty.oninput = function () {
             for (var i = 1; i < buttons.length; i++) {
                 const queryParams = new URLSearchParams((buttons[i].href.split('game')[1]));
-                console.log(queryParams.get("id"))
                 var levelId = queryParams.get("id");
                 buttons[i].href = "../game?id=" + levelId + "&diff=" + difficulty.value;
             }
