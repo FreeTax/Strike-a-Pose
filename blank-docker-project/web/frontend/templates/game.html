@@ -76,7 +76,7 @@
             <div id="slideshow-container" class="flex-container"></div>
         </div>
         <button onclick="videoClick()" class="greenButton">video</button>
-        <div><video id="videoElement2" width="640" height="480" controls loop></video></div>
+        <div id="videoEndDiv"><video id="videoElement2" width="640" height="480" controls loop></video><a id="downloadVideo"><button class="whiteButton">Scrica video </button></a></div>
         <button onclick="scoreCLick()" class="greenButton">classifica</button>
         <div id="tableDiv">
             <table id="table">
@@ -93,15 +93,15 @@
             function inforOpereClick() {
                 document.getElementById('slideshow-container').style.display = " block";
                 document.getElementById('table').style.display = "none";
-                document.getElementById('videoElement2').style.display = "none";
+                document.getElementById('videoEndDiv').style.display = "none";
             } function videoClick() {
                 document.getElementById('slideshow-container').style.display = "none";
                 document.getElementById('table').style.display = "none";
-                document.getElementById('videoElement2').style.display = "block";
+                document.getElementById('videoEndDiv').style.display = "block";
             } function scoreCLick() {
                 document.getElementById('slideshow-container').style.display = "none";
                 document.getElementById('table').style.display = "block";
-                document.getElementById('videoElement2').style.display = "none";
+                document.getElementById('videoEndDiv').style.display = "none";
             } </script>
     </div>
 

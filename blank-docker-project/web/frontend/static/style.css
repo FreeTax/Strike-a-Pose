@@ -92,7 +92,7 @@ body{
     #table{
         display: none;
     }
-    #videoElement2{
+    #videoEndDiv{
         display: none;
     }
 }
@@ -101,7 +101,7 @@ body{
     .greenButton{
         display: none;
     }
-    #videoElement2{
+    #videoEndDiv{
         display: block;
     }
     #table{

@@ -185,6 +185,8 @@ function stopvideo() {
   start.style.display = "none"
   end.style.display = "flex"
   document.getElementById("game").style.backgroundImage="url(../static/assets/sfondo_start.png)"
+  document.getElementById("downloadVideo").href = videoURL
+  document.getElementById("downloadVideo").download = "video.mp4";
 
 }
 function setEnd(score, time){
