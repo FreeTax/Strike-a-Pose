@@ -48,7 +48,6 @@ export const poseInit = async (vid, img, vidCanvas, imgCanvas, scoreLbl, timelbl
   vidCanvas.height=video.height;
   imageCanvas.width=image.width;
   imageCanvas.height=image.width;
-  difficulty/=10;
 
   const vidCtx = videoCanvas.getContext("2d");
   vidCtx.translate(vidCanvas.width, 0);
