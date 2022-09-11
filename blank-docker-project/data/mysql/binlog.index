@@ -1,9 +1,5 @@
 ./binlog.000001
 ./binlog.000002
-<<<<<<< HEAD
-./binlog.000003
-./binlog.000080
-=======
 ./binlog.000004
 ./binlog.000005
 ./binlog.000006
@@ -52,4 +48,4 @@
 ./binlog.000050
 ./binlog.000051
 ./binlog.000052
->>>>>>> bug_fix_branch
+./binlog.000053

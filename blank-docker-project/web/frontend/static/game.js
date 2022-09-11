@@ -126,7 +126,6 @@ export const runPosenet = async (video, img, canvas, imgCanvas, ctx, imgCtx, sco
         }
       }
       if (timeleft <= 0) {
-        stopvideo();
         clearInterval(gameLoop);
         stopvideo();
         const time = (30 * levelPictures.length);
