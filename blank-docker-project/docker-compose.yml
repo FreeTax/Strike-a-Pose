@@ -22,8 +22,8 @@ services:
     ports:
       - "8000:8000"
     restart: on-failure
-    #depends_on:
-      #db:
+    depends_on:
+      - db
         #condition: service_healthy
     image: app:django     
     environment:
