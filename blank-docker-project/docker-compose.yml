@@ -9,22 +9,22 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./data/mysql:/var/lib/mysql
-    healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:3306"]
-        interval: 5s
-        timeout: 5s
-        retries: 5
+    #healthcheck:
+     #   test: ["CMD", "curl", "-f", "http://localhost:3306"]
+      #  interval: 5s
+       # timeout: 5s
+        #retries: 5
   web:
     build: ./web/.
     command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py loaddata default_data.json && python manage.py runserver 0.0.0.0:8000"          
     volumes:
       - ./web:/code
     ports:
-      - "8000:8000"
+      - "80"
     restart: on-failure
     depends_on:
-      db:
-        condition: service_healthy
+      - db
+       # condition: service_healthy
     image: app:django     
     environment:
       - DB_HOST=db
