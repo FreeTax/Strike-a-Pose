@@ -26,7 +26,7 @@ SECRET_KEY = '5eph3^9&fo_))q2bko^xsh_&-af*@)44y8$v5zk5qx+0!o4d$b'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://francescomazzola.com', 'https://www.francescomazzola.com', 'http://francescomazzola.com', 'http://www.francescomazzola.com', 'http://localhost:8000']
 
 # Application definition
 
