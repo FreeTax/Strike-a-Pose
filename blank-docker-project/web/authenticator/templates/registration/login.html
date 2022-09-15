@@ -27,7 +27,7 @@
             <input type="password" name="password" placeholder="Password">
             <button type="submit" name="submit">Login </button>
         </form>
-        <a href="{% url 'register' %}" >Sign up?</a>
+        <a href="{% url 'register' %}" >Sign up</a>
         {%if messages%}
         {% for message in messages %}
         <div class="alert alert-{{message.tags}}">
