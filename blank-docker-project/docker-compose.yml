@@ -25,7 +25,7 @@ services:
     depends_on:
       - db
        # condition: service_healthy
-    image: app:django     
+    #image: app:django     
     environment:
       - DB_HOST=db
       - DB_DATABASE=blank

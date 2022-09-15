@@ -25,8 +25,8 @@ SECRET_KEY = '5eph3^9&fo_))q2bko^xsh_&-af*@)44y8$v5zk5qx+0!o4d$b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://francescomazzola.com', 'https://www.francescomazzola.com', 'http://francescomazzola.com', 'http://www.francescomazzola.com', 'http://localhost:8000']
+ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'blank.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blank',
-        'USER':'root',
-        'PASSWORD': 'root',
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
