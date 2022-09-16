@@ -24,9 +24,9 @@
     </div>
     <div id="start-container" class="flex-container">
         <div id="slider-container">
-            <label>Facile</label>
+            <label>Easy</label>
             <input type="range" min="0.75" max="0.85" value="0.8" id="difficulty" step=".05">
-            <label>Difficile</label>
+            <label>Hard</label>
         </div>
         <div id="level-list" class="flex-container"></div>
     </div>
@@ -43,11 +43,11 @@
             levelListEl.innerHTML += `
         <div class="card mb-3">
                 <h2 class="card-title" >${levelList[i].fields.name}</h2>
-                <h5 class="card-subtitle mb-2 text-muted">${images.length} opere</h5>
+                <h5 class="card-subtitle mb-2 text-muted">${images.length} works of art</h5>
                 <p class="card-text">
                 ${levelList[i].fields.description}
                 </p>
-                <a class="btn btn-primary btn-block" href="../game?id=${levelList[i].pk}&diff=${difficulty.value}">GIOCA</a>
+                <a class="btn btn-primary btn-block" href="../game?id=${levelList[i].pk}&diff=${difficulty.value}">PLAY</a>
         </div>`;
         };
 

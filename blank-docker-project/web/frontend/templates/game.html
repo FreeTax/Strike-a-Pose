@@ -38,7 +38,7 @@
                 <label>Score</label><progress value="0" max="100" id="score"></progress>
             </div>
             <div >
-                <label>Tempo:</label><label id="time"></label>
+                <label>Time:</label><label id="time"></label>
             </div>
         </div>
         <div id="contanerWebcamGame">
@@ -54,7 +54,7 @@
 
         <div id="loading">
             <img src="{% static 'assets/loading.gif' %}">
-            <h2>Caricamento...</h2>
+            <h2>Loading...</h2>
         </div>
     </div>
     <div id="endContainer" class="flex-container">
@@ -71,20 +71,20 @@
 
 
         </div>
-        <a href="{% url 'start' %}"><button class="whiteButton">gioca ancora </button></a>
-        <button onclick="inforOpereClick()" class="greenButton">info opere</button>
+        <a href="{% url 'start' %}"><button class="whiteButton">play again </button></a>
+        <button onclick="inforOpereClick()" class="greenButton">infos</button>
         <div>
             <div id="slideshow-container" class="flex-container"></div>
         </div>
         <button onclick="videoClick()" class="greenButton">video</button>
-        <div id="videoEndDiv"><video id="videoElement2" width="640" height="480" controls loop></video><a id="downloadVideo"><button class="whiteButton"><i class="fa fa-download"></i>  Scrica video </button></a></div>
-        <button onclick="scoreCLick()" class="greenButton">classifica</button>
+        <div id="videoEndDiv"><video id="videoElement2" width="640" height="480" controls loop></video><a id="downloadVideo"><button class="whiteButton"><i class="fa fa-download"></i>  download video </button></a></div>
+        <button onclick="scoreCLick()" class="greenButton">ranking</button>
         <div id="tableDiv">
             <table id="table">
                 <tr>
-                    <th>Tempo</th>
-                    <th>Pose</th>
-                    <th>Data</th>
+                    <th>Time</th>
+                    <th>Poses</th>
+                    <th>Date</th>
                 </tr>
             </table>
         </div>

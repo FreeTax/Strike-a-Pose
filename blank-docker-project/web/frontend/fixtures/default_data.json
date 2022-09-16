@@ -3,8 +3,8 @@
         "model": "frontend.level",
         "pk": 1,
         "fields": {
-            "name": "Mezzo busto",
-            "description": "Imita la posa di una serie di opere d'arte. Troverai solo opere a mezzo busto."
+            "name": "Half bust",
+            "description": "Imitate the pose of a series of works of art. You will find only half-bust works."
         }
     },
     {
@@ -13,7 +13,7 @@
         "fields": {
             "path": "static/assets/opere/img16.jpeg",
             "level": "1",
-            "description":"La Dama con l'ermellino è un dipinto a olio su tavola (54 ×40 cm) di Leonardo da Vinci, databile al 1488-1490. La donna ritratta va quasi sicuramente identificata con Cecilia Gallerani."
+            "description":"The Lady with an Ermine is a portrait painting widely attributed to the Italian Renaissance artist Leonardo da Vinci. Dated to c.1489-1491, the work is painted in oils on a panel of walnut wood. Its subject is Cecilia Gallerani, a mistress of Ludovico Sforza, Duke of Milan"
         }
     },
     {
@@ -22,7 +22,7 @@
         "fields": {
             "path": "static/assets/opere/img18.jpeg",
             "level": "1",
-            "description":"Bacco è un dipinto realizzato tra il 1596 ed il 1598 dal pittore italiano Caravaggio, conservato nella Galleria degli Uffizi di Firenze."
+            "description":"Bacchus is a painting made between 1596 and 1598 by the Italian painter Caravaggio, preserved in the Uffizi Gallery in Florence."
         }
     },
     {
@@ -31,7 +31,7 @@
         "fields": {
             "path": "static/assets/opere/img15.jpeg",
             "level": "1",
-            "description":"San Giovanni Battista è un dipinto a olio su tavola di noce (69x57 cm) di Leonardo da Vinci, databile al 1508-1513 e conservato nel Museo del Louvre a Parigi."
+            "description":"St. John the Baptist is an oil painting on walnut panel (69x57 cm) by Leonardo da Vinci, dated 1508-1513 and kept in the Louvre Museum in Paris."
         }
     },
     {
@@ -40,15 +40,15 @@
         "fields": {
             "path": "static/assets/opere/img17.jpeg",
             "level": "1",
-            "description":"La Gioconda, nota anche come Monna Lisa, è un dipinto a olio su tavola di legno di pioppo realizzato da Leonardo da Vinci (77×53 cm e 13 mm di spessore), databile al 1503-1506 circa e conservato nel Museo del Louvre di Parigi."
+            "description":"The Mona Lisa, is an oil painting on poplar wood panel by Leonardo da Vinci (77×53 cm and 13 mm thick), dating from around 1503-1506 and housed in the Louvre Museum in Paris."
         }
     },
     {
         "model": "frontend.level",
         "pk": 2,
         "fields": {
-            "name": "Intero",
-            "description": "Imita la posa di una serie di opere d'arte. Troverai solo opere a busto intero."
+            "name": "Full figure",
+            "description": " Imitate the pose of a series of works of art. You will find only full bust works."
         }
     },
     {
@@ -57,7 +57,7 @@
         "fields": {
             "path": "static/assets/opere/img11.jpeg",
             "level": "2",
-            "description":"L'Afrodite di Capua è una scultura marmorea romana databile intorno al II secolo d.C. e conservata presso il museo archeologico nazionale di Napoli. L'opera è una copia romana di un originale bronzeo del IV secolo a.C.."
+            "description":"The Aphrodite of Capua is a Roman marble sculpture dating from around the 2nd century AD and housed in the National Archaeological Museum in Naples. The work is a Roman copy of a 4th century BC bronze original."
         }
     },
     {
@@ -66,7 +66,7 @@
         "fields": {
             "path": "static/assets/opere/img12.jpeg",
             "level": "2",
-            "description":"Il David è una scultura realizzata in marmo (altezza 520 cm incluso il basamento di 108 cm) da Michelangelo Buonarroti, databile tra il 1501 e l'inizio del 1504 e conservata nella Galleria dell'Accademia a Firenze."
+            "description":"David is a masterpiece of Renaissance sculpture, created in marble between 1501 and 1504 by the Italian artist Michelangelo. David is a 5.17-metre marble statue of the Biblical figure David, a favoured subject in the art of Florence"
         }
     },
     {
@@ -75,7 +75,7 @@
         "fields": {
             "path": "static/assets/opere/img13.jpeg",
             "level": "2",
-            "description":"La Nascita di Venere è un dipinto a tempera su tela di lino (172,5 cm × 278,50 cm) di Sandro Botticelli. Realizzata per la villa medicea di Castello, l'opera è attualmente conservata nella Galleria degli Uffizi a Firenze."
+            "description":"The Birth of Venus is a tempera painting on linen canvas (172.5 cm × 278.50 cm) by Sandro Botticelli. Painted for the Medici villa of Castello, the work is currently housed in the Uffizi Gallery in Florence."
         }
     },
     {
@@ -84,7 +84,7 @@
         "fields": {
             "path": "static/assets/opere/img14.jpeg",
             "level": "2",
-            "description":"Il Bacco su un precedente san Giovanni Battista è un dipinto a olio su tavola trasportato su tela (177 × 115 cm) attribuito a Leonardo da Vinci e bottega, databile al 1510-1515 e conservato nel Museo del Louvre a Parigi."
+            "description":"The Bacchus on an Earlier Saint John the Baptist is an oil painting on panel transported on canvas (177 × 115 cm) attributed to Leonardo da Vinci and workshop, dated 1510-1515 and kept in the Louvre Museum in Paris."
         }
     },
     {
@@ -93,15 +93,15 @@
         "fields": {
             "path": "static/assets/opere/img10.jpeg",
             "level": "2",
-            "description":"La statua della Libertà, il cui nome completo è la Libertà che illumina il mondo, inaugurata nel 1886, è un simbolo degli interi Stati Uniti d'America. È situata all'entrata del porto sul fiume Hudson al centro della baia di Manhattan, sulla rocciosa Liberty Island."
+            "description":"The Statue of Liberty, whose full name is Liberty Enlightening the World, unveiled in 1886, is a symbol of the entire United States of America. It stands at the harbour entrance on the Hudson River in the middle of Manhattan Bay, on Liberty Island."
         }
     },
     {
         "model": "frontend.level",
         "pk": 3,
         "fields": {
-            "name": "Misto",
-            "description": "Imita la posa di una serie di opere d'arte. Troverai opere a metà busto e a busto intero"
+            "name": "Mixed",
+            "description": " Imitate the pose of a series of works of art. You will find half bust and full bust works"
         }
     },
     {
@@ -110,7 +110,7 @@
         "fields": {
             "path": "static/assets/opere/img16.jpeg",
             "level": "3",
-            "description":"La Dama con l'ermellino è un dipinto a olio su tavola (54 ×40 cm) di Leonardo da Vinci, databile al 1488-1490. La donna ritratta va quasi sicuramente identificata con Cecilia Gallerani."
+            "description":"The Lady with an Ermine is a portrait painting widely attributed to the Italian Renaissance artist Leonardo da Vinci. Dated to c.1489-1491, the work is painted in oils on a panel of walnut wood. Its subject is Cecilia Gallerani, a mistress of Ludovico Sforza, Duke of Milan"
         }
     },
     {
@@ -119,7 +119,7 @@
         "fields": {
             "path": "static/assets/opere/img12.jpeg",
             "level": "3",
-            "description":"Il David è una scultura realizzata in marmo (altezza 520 cm incluso il basamento di 108 cm) da Michelangelo Buonarroti, databile tra il 1501 e l'inizio del 1504 e conservata nella Galleria dell'Accademia a Firenze."
+            "description":"David is a masterpiece of Renaissance sculpture, created in marble between 1501 and 1504 by the Italian artist Michelangelo. David is a 5.17-metre marble statue of the Biblical figure David, a favoured subject in the art of Florence"
         }
     },
     {
@@ -128,7 +128,7 @@
         "fields": {
             "path": "static/assets/opere/img15.jpeg",
             "level": "3",
-            "description":"San Giovanni Battista è un dipinto a olio su tavola di noce (69x57 cm) di Leonardo da Vinci, databile al 1508-1513 e conservato nel Museo del Louvre a Parigi."
+            "description":"St. John the Baptist is an oil painting on walnut panel (69x57 cm) by Leonardo da Vinci, dated 1508-1513 and kept in the Louvre Museum in Paris."
         }
     },
     {
@@ -137,7 +137,7 @@
         "fields": {
             "path": "static/assets/opere/img13.jpeg",
             "level": "3",
-            "description":"La Nascita di Venere è un dipinto a tempera su tela di lino (172,5 cm × 278,50 cm) di Sandro Botticelli. Realizzata per la villa medicea di Castello, l'opera è attualmente conservata nella Galleria degli Uffizi a Firenze."
+            "description":"The Birth of Venus is a tempera painting on linen canvas (172.5 cm × 278.50 cm) by Sandro Botticelli. Painted for the Medici villa of Castello, the work is currently housed in the Uffizi Gallery in Florence."
         }
     },
     {
@@ -146,7 +146,7 @@
         "fields": {
             "path": "static/assets/opere/img17.jpeg",
             "level": "3",
-            "description":"La Gioconda, nota anche come Monna Lisa, è un dipinto a olio su tavola di legno di pioppo realizzato da Leonardo da Vinci (77×53 cm e 13 mm di spessore), databile al 1503-1506 circa e conservato nel Museo del Louvre di Parigi."
+            "description":"The Mona Lisa, is an oil painting on poplar wood panel by Leonardo da Vinci (77×53 cm and 13 mm thick), dating from around 1503-1506 and housed in the Louvre Museum in Paris."
         }
     },
     {
@@ -155,7 +155,7 @@
         "fields": {
             "path": "static/assets/opere/img10.jpeg",
             "level": "3",
-            "description":"La statua della Libertà, il cui nome completo è la Libertà che illumina il mondo, inaugurata nel 1886, è un simbolo degli interi Stati Uniti d'America. È situata all'entrata del porto sul fiume Hudson al centro della baia di Manhattan, sulla rocciosa Liberty Island."
+            "description":"The Statue of Liberty, whose full name is Liberty Enlightening the World, unveiled in 1886, is a symbol of the entire United States of America. It stands at the harbour entrance on the Hudson River in the middle of Manhattan Bay, on Liberty Island."
         }
     }
 ]
